@@ -2,11 +2,11 @@ export function BookIcon({ className = null }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      fill="#FFC73B"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={className || "w-6 h-6"}
+      className={className || "w-10 h-10"}
     >
       <path
         strokeLinecap="round"
@@ -30,23 +30,21 @@ export function MenuIcon({ className }) {
   );
 }
 
-{
-  export function MenuIcon3(props) {
-    return (
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <g
-          fill="#fff"
-          stroke="#000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-        >
-          <path d="M20 18L4 18 4 18 20 18 20 18z" />
-          <path d="M20 14L4 14 4 14 20 14 20 14z" />
-          <path d="M20 10L4 10 4 10 20 10 20 10z" />
-          <path d="M20 6L4 6 4 6 20 6 20 6z" />
-        </g>
-      </svg>
-    );
-  }
+export function MenuIcon3(props) {
+  return (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <g
+        fill="#fff"
+        stroke="#000"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+      >
+        <path d="M20 18L4 18 4 18 20 18 20 18z" />
+        <path d="M20 14L4 14 4 14 20 14 20 14z" />
+        <path d="M20 10L4 10 4 10 20 10 20 10z" />
+        <path d="M20 6L4 6 4 6 20 6 20 6z" />
+      </g>
+    </svg>
+  );
 }

@@ -1,12 +1,22 @@
-import { BookIcon } from "./icons";
+import Container from "./layouts/Container";
+import Footer from "./layouts/Footer";
+import Headers from "./layouts/Headers";
+import Router from "./routes/Router";
 
 function App() {
   return (
-    <>
-      <div className="bg-[#232F3E]">
-        <BookIcon className="fill-[#232F3E] text-yellow-600 w-10 h-10" />
+    <div className="flex flex-col">
+      <div>
+        <Headers />
       </div>
-    </>
+      <div className="flex-1 min-h-[100vh]">
+        <Router />
+      </div>
+      <div className="">
+        <Footer />
+      </div>
+    </div>
+    // <Container />
   );
 }
 
