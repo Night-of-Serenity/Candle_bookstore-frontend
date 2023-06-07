@@ -1,9 +1,11 @@
-import Router from "./routes/Router";
+import Router from "./routes/Routerer";
+import Container from "./layouts/Container";
 
 function App() {
   return (
-    <Router />
-    // <Container />
+    <Container>
+      <Router />
+    </Container>
   );
 }
 
