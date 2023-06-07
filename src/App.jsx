@@ -1,12 +1,7 @@
-import Router from "./routes/Routerer";
-import Container from "./layouts/Container";
+import Router from "./routes/Router";
 
 function App() {
-  return (
-    <Container>
-      <Router />
-    </Container>
-  );
+  return <Router />;
 }
 
 export default App;
