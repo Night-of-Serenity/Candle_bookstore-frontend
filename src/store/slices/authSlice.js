@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as AuthApi from "../../api/auth-api";
 
 const initialState = {
-  isAuthenUser: false,
+  isAuthUser: false,
   isAdmin: false,
   error: null,
   user: null,
@@ -13,7 +13,8 @@ export const registerAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await AuthApi.register(input);
-      console.log(res.data);
+      return res;
+      //   console.log(res.data);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -25,10 +26,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) =>
-    builder.addCase(registerAsync.fulfilled, (state) => {
-      state.isAuthenticated = false;
-      state.user = null;
-    }),
+    builder
+      .addCase(registerAsync.fulfilled, (state) => {
+        state.state.user = null;
+      })
+      .addCase(registerAsync.rejected, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      }),
 });
 
 export default authSlice.reducer;

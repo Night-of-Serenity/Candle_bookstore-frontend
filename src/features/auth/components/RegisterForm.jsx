@@ -21,16 +21,17 @@ export default function RegisterForm() {
         const input = { username, email, password, confirmPassword };
         const validateError = validateRegister(input);
         if (validateError) {
-          // console.log("validError", validateError);
           toast.error("register inputs incorrect");
           return setError(validateError);
         }
         setError({});
 
         const res = await dispatch(registerAsync(input)).unwrap();
-        toast.success("register success", res.data);
+        if (res.status === 200) {
+          toast.success(res.data.message);
+        }
       } catch (err) {
-        toast.success(err);
+        toast.error(err);
       }
     };
     register();
