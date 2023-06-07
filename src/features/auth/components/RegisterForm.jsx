@@ -1,7 +1,9 @@
-import * as AuthService from "../../../api/auth-api";
 import { useState } from "react";
 import validateRegister from "../../../validators/validate-register";
 import InputErrorMessage from "./InputErrorMessage";
+import { useDispatch } from "react-redux";
+import { registerAsync } from "../../../store/slices/authSlice";
+import { toast } from "react-toastify";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -10,22 +12,25 @@ export default function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState({});
 
+  const dispatch = useDispatch();
+
   const handleSummit = (e) => {
     e.preventDefault();
     const register = async () => {
       try {
         const input = { username, email, password, confirmPassword };
         const validateError = validateRegister(input);
-        // console.log("validError", validateError);
         if (validateError) {
-          console.log("validError", validateError);
+          // console.log("validError", validateError);
+          toast.error("register inputs incorrect");
           return setError(validateError);
         }
         setError({});
 
-        AuthService.register(input);
+        const res = await dispatch(registerAsync(input)).unwrap();
+        toast.success("register success", res.data);
       } catch (err) {
-        console.log(err);
+        toast.success(err);
       }
     };
     register();
