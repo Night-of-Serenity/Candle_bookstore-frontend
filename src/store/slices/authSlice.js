@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as AuthApi from "../../api/auth-api";
+import { setAccessToken } from "../../utils/localstorage";
 
 const initialState = {
-  isAuthUser: false,
+  isAuthenticated: false,
   isAdmin: false,
   error: null,
   user: null,
@@ -10,11 +11,10 @@ const initialState = {
 };
 
 export const registerAsync = createAsyncThunk(
-  "auth/register",
+  "auth/registerAsync",
   async (input, thunkApi) => {
     try {
       const res = await AuthApi.register(input);
-
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -23,11 +23,14 @@ export const registerAsync = createAsyncThunk(
 );
 
 export const loginAsync = createAsyncThunk(
-  "auth/login",
+  "auth/loginAsync",
   async (input, thunkApi) => {
     try {
       const res = await AuthApi.login(input);
-      return res;
+      setAccessToken(res.data.accessToken);
+      const resFetchMe = await AuthApi.fetchMe();
+      console.log(resFetchMe);
+      return resFetchMe.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -43,16 +46,13 @@ const authSlice = createSlice({
       .addCase(registerAsync.fulfilled, (state) => {
         state.actionSucceed = true;
       })
-      .addCase(registerAsync.rejected, (state, action) => {
-        console.log(action.payload);
-        state.err = { registerError: true };
-      })
       .addCase(loginAsync.fulfilled, (state, action) => {
-        state.isAuthenticated = false;
+        state.isAuthenticated = true;
         if (action.payload.isAdmin) {
-          state.isAdmin = true;
+          state.isAdmin = action.payload.isAdmin;
         }
-        state.user = null;
+        state.user = action.payload;
+        console.log(action.payload);
       }),
 });
 

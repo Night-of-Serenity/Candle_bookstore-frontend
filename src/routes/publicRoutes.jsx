@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 // import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import RegisterPage from "../pages/RegisterPage";
@@ -56,6 +56,10 @@ const publicRoutes = [
         element: <RegisterPage />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
 

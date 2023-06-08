@@ -1,6 +1,6 @@
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
@@ -71,6 +71,10 @@ const authUserRoutes = [
         element: <div>user profile page</div>,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
 
