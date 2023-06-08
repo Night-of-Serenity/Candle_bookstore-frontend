@@ -4,6 +4,7 @@ import InputErrorMessage from "./InputErrorMessage";
 import { useDispatch } from "react-redux";
 import { registerAsync } from "../../../store/slices/authSlice";
 import { toast } from "react-toastify";
+import * as AuthApi from "../../../api/auth-api";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -27,8 +28,9 @@ export default function RegisterForm() {
         setError({});
 
         const res = await dispatch(registerAsync(input)).unwrap();
-        if (res.status === 200) {
-          toast.success(res.data.message);
+
+        if (res) {
+          toast.success("register succeed");
         }
       } catch (err) {
         toast.error(err);

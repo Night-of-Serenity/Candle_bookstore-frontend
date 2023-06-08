@@ -6,6 +6,7 @@ const initialState = {
   isAdmin: false,
   error: null,
   user: null,
+  actionSucceed: false,
 };
 
 export const registerAsync = createAsyncThunk(
@@ -13,8 +14,20 @@ export const registerAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await AuthApi.register(input);
+
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const loginAsync = createAsyncThunk(
+  "auth/login",
+  async (input, thunkApi) => {
+    try {
+      const res = await AuthApi.login(input);
       return res;
-      //   console.log(res.data);
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -28,10 +41,17 @@ const authSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(registerAsync.fulfilled, (state) => {
-        state.state.user = null;
+        state.actionSucceed = true;
       })
-      .addCase(registerAsync.rejected, (state) => {
+      .addCase(registerAsync.rejected, (state, action) => {
+        console.log(action.payload);
+        state.err = { registerError: true };
+      })
+      .addCase(loginAsync.fulfilled, (state, action) => {
         state.isAuthenticated = false;
+        if (action.payload.isAdmin) {
+          state.isAdmin = true;
+        }
         state.user = null;
       }),
 });
