@@ -5,7 +5,7 @@ export default function Usermenu({ isAdmin, username, onClickLogout }) {
     <details>
       {isAdmin ? (
         <>
-          <summary>{username}</summary>
+          <summary>{`admin ${username}`}</summary>
           <ul className="p-2  right-3 ">
             <li>
               <Link>admin profile</Link>
