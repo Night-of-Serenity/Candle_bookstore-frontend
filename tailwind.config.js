@@ -2,36 +2,39 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      colors: {
-        // myprimary: "#FFC73B",
+    // extend: {
+    //   colors: {
+    //     "base-100": "#1f2937",
+    //     primary: "#1f2937",
+    //     secondary: "#37475A",
+    //     accent: "#FFC73B",
+    //   },
+    // },
+  },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#FFC73B",
+
+          secondary: "#FDFBF6",
+
+          accent: "#78716c",
+
+          neutral: "#37475A",
+
+          "base-100": "#111827",
+
+          info: "#3abff8",
+
+          success: "#36d399",
+
+          warning: "#fbbd23",
+
+          error: "#f87272",
+        },
       },
-      daisyui: {
-        themes: [
-          {
-            mytheme: {
-              primary: "#1f2937",
-
-              secondary: "#0c4a6e",
-
-              accent: "#eeaf3a",
-
-              neutral: "#291334",
-
-              "base-100": "#f3f4f6",
-
-              info: "#3abff8",
-
-              success: "#36d399",
-
-              warning: "#fbbd23",
-
-              error: "#f87272",
-            },
-          },
-        ],
-      },
-    },
+    ],
   },
   plugins: [require("daisyui")],
 };
