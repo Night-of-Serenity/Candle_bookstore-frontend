@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as AuthApi from "../../api/auth-api";
-import { setAccessToken } from "../../utils/localstorage";
+import { removeAccessToken, setAccessToken } from "../../utils/localstorage";
 
 const initialState = {
   isAuthenticated: false,
@@ -52,6 +52,17 @@ export const fetchMeAsync = createAsyncThunk(
   }
 );
 
+export const logoutAsync = createAsyncThunk(
+  "auth/logout",
+  async (_, thunkApi) => {
+    try {
+      removeAccessToken();
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -80,6 +91,12 @@ const authSlice = createSlice({
           state.isAdmin = action.payload.isAdmin;
         }
         state.user = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(logoutAsync.fulfilled, (state, action) => {
+        state.isAuthenticated = false;
+        state.isAdmin = false;
+        state.user = null;
         console.log(action.payload);
       }),
 });

@@ -2,8 +2,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
+
 import Container from "../layouts/Container";
 const authUserRoutes = [
   {
@@ -45,14 +44,7 @@ const authUserRoutes = [
         path: "/books/:bookid",
         element: <div>book detail</div>,
       },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
+
       {
         path: "/orderslist",
         element: <div>purchased history</div>,
