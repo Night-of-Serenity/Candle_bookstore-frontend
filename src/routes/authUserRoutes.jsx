@@ -1,19 +1,17 @@
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-
+import Container from "../layouts/Container";
 const authUserRoutes = [
   {
     path: "/",
     element: (
       <>
         <Header />
-        <div className="min-h-[100vh]">
-          <Outlet />
-        </div>
+        <Container />
         <Footer />
       </>
     ),

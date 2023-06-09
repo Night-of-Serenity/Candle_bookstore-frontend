@@ -1,16 +1,14 @@
 import { Outlet, Navigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-
+import Container from "../layouts/Container";
 const adminRoutes = [
   {
     path: "/",
     element: (
       <>
         <Header />
-        <div className="min-h-[100vh]">
-          <Outlet />
-        </div>
+        <Container />
         <Footer />
       </>
     ),

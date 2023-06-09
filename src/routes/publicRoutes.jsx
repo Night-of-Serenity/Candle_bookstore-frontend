@@ -1,10 +1,11 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 // import ProtectedRoute from "../features/auth/components/ProtectedRoute";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+import Container from "../layouts/Container";
 
 const publicRoutes = [
   {
@@ -12,9 +13,7 @@ const publicRoutes = [
     element: (
       <>
         <Header />
-        <div className="min-h-[100vh]">
-          <Outlet />,
-        </div>
+        <Container />
         <Footer />
       </>
     ),
