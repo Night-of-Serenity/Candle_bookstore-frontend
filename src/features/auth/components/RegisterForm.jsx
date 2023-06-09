@@ -60,7 +60,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSummit}>
       <div className="grid gap-4">
-        <h1 className="text-5xl text-center text-black p-3">Register</h1>
+        <h1 className="p-3 text-5xl text-center text-black">Register</h1>
         <div>
           <FormInput
             placeholder="username"

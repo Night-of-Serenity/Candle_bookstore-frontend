@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="footer footer-center p-10 bg-maindarkblue rounded text-white">
+    <footer className="p-5 text-white footer footer-center bg-maindarkblue">
       {/* <div className="grid grid-flow-col gap-4">
 
       </div> */}

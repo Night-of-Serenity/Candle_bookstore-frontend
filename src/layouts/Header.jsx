@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Searchbar from "../components/Searchbar";
 import { BookIcon } from "../icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,11 +11,12 @@ export default function Header() {
   const dispatch = useDispatch();
   const { isAdmin, isAuthUser } = useAuth();
   const user = useSelector((state) => state.auth.user);
+  const { pathname: currentRoute } = useLocation();
 
   return (
-    <div className="navbar navbar-center bg-maindarkblue text-white py-5">
+    <div className="py-2 text-white navbar navbar-center bg-maindarkblue">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost normal-case text-3xl">
+        <Link to="/" className="text-3xl normal-case btn btn-ghost">
           <BookIcon />
           <span className="text-coreyellow">CANDLE</span>
         </Link>
@@ -24,11 +25,32 @@ export default function Header() {
         </div>
       </div>
       <div className="flex-none ml-15">
-        <ul className="menu menu-horizontal px-1 flex items-center">
+        <ul className="flex items-center px-1 menu menu-horizontal">
           {isAdmin ? (
             <>
               <li>
-                <Link to="/">Store Management</Link>
+                <Link
+                  to="/"
+                  className={
+                    currentRoute === "/" || currentRoute.startsWith("/books")
+                      ? "text-mainyellow"
+                      : "text-white"
+                  }
+                >
+                  Store Management
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/orders"
+                  className={
+                    currentRoute.startsWith("/orders")
+                      ? "text-mainyellow"
+                      : "text-white"
+                  }
+                >
+                  Orders Management
+                </Link>
               </li>
               <li>
                 <Usermenu
@@ -48,10 +70,24 @@ export default function Header() {
           ) : isAuthUser ? (
             <>
               <li>
-                <Link to="/">HOME</Link>
+                <Link
+                  to="/"
+                  className={
+                    currentRoute === "/" ? "text-mainyellow" : "text-white"
+                  }
+                >
+                  HOME
+                </Link>
               </li>
               <li>
-                <Link to="/cart">Cart</Link>
+                <Link
+                  to="/cart"
+                  className={
+                    currentRoute === "/cart" ? "text-mainyellow" : "text-white"
+                  }
+                >
+                  Cart
+                </Link>
               </li>
               <li>
                 <Usermenu
@@ -71,13 +107,36 @@ export default function Header() {
           ) : (
             <>
               <li>
-                <Link to="/">HOME</Link>
+                <Link
+                  to="/"
+                  className={
+                    currentRoute === "/" ? "text-mainyellow" : "text-white"
+                  }
+                >
+                  HOME
+                </Link>
               </li>
               <li>
-                <Link to="/login">Sign in</Link>
+                <Link
+                  to="/login"
+                  className={
+                    currentRoute === "/login" ? "text-mainyellow" : "text-white"
+                  }
+                >
+                  Sign in
+                </Link>
               </li>
               <li>
-                <Link to="/register">Register</Link>
+                <Link
+                  to="/register"
+                  className={
+                    currentRoute === "/register"
+                      ? "text-mainyellow"
+                      : "text-white"
+                  }
+                >
+                  Register
+                </Link>
               </li>
               <li>
                 <span>Guest</span>

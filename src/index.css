@@ -10,6 +10,11 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
 /* :root {
   --primary: "#232F3E";
   --primary-second: "#37475A";

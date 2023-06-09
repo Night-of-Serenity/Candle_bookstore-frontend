@@ -19,14 +19,14 @@ const adminRoutes = [
         element: <div>stock management page</div>,
       },
       {
-        path: "/book/:bookid",
+        path: "/books/:bookid",
         element: <Outlet />,
         children: [
           { path: "", element: <div>book detail</div> },
           { path: "editbook", element: <div>edit book page</div> },
+          { path: "addbook", element: <div>add book page</div> },
         ],
       },
-      { path: "addbook", element: <div>add book page</div> },
       {
         path: "orders",
         element: <Outlet />,

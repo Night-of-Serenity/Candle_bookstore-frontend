@@ -6,6 +6,7 @@ export default {
     extend: {
       colors: {
         maindarkblue: "#1f2937",
+        mainsmdarkblue: "#232F3E",
         mainlightblue: "#37475A",
         mainpaper: "#FDFBF6",
         mainyellow: "#FFC73B",
