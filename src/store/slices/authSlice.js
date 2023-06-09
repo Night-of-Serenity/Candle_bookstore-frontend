@@ -40,6 +40,18 @@ export const loginAsync = createAsyncThunk(
   }
 );
 
+export const fetchMeAsync = createAsyncThunk(
+  "auth/fetchMeAsync",
+  async (_, thunkApi) => {
+    try {
+      const resFetchMe = await AuthApi.fetchMe();
+      return resFetchMe.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -55,6 +67,14 @@ const authSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        if (action.payload.isAdmin) {
+          state.isAdmin = action.payload.isAdmin;
+        }
+        state.user = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(fetchMeAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         if (action.payload.isAdmin) {
           state.isAdmin = action.payload.isAdmin;

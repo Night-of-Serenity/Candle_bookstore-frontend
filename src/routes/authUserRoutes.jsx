@@ -11,6 +11,7 @@ const authUserRoutes = [
     element: (
       <>
         <Header />
+        AuthUser
         <Container />
         <Footer />
       </>
