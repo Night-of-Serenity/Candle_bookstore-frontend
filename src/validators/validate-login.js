@@ -12,7 +12,7 @@ const loginSchema = Joi.object({
     }),
 });
 
-export default (input) => {
+export default function validateLogin(input) {
   const { error } = loginSchema.validate(input, {
     abortEarly: false,
   });
@@ -23,4 +23,4 @@ export default (input) => {
       return acc;
     }, {});
   }
-};
+}

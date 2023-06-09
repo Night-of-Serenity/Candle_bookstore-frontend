@@ -19,7 +19,7 @@ const registerSchema = Joi.object({
   }),
 });
 
-export default (input) => {
+export default function validateRegister(input) {
   const { error } = registerSchema.validate(input, {
     abortEarly: false,
   });
@@ -30,4 +30,4 @@ export default (input) => {
       return acc;
     }, {});
   }
-};
+}

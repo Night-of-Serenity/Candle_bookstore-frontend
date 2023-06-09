@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import validateLogin from "../../../validators/validate-login";
 import { useDispatch } from "react-redux";
 import { loginAsync } from "../../../store/slices/authSlice";
-import InputErrorMessage from "./InputErrorMessage";
+import FormInput from "./FormInput";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -27,6 +27,7 @@ export default function LoginForm() {
         const validateError = validateLogin(input);
         if (validateError) {
           toast.error("login inputs incorrect");
+          console.log(validateError);
           return setError(validateError);
         }
         setError({});
@@ -46,29 +47,27 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSummit}>
-      <div className="grid gap-4">
+      <div className="grid grid- gap-4">
+        <h1 className="text-5xl text-center text-black p-3">Log in</h1>
         <div>
-          <h1 className="text-5xl text-center text-black p-3">Log in</h1>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
-            placeholder="username"
+          <FormInput
             value={username}
+            placeholder="username"
             onChange={handleOnchangeUsername}
             name="username"
+            isError={error.username}
+            errMessage={error.username}
           />
-          {error.username && <InputErrorMessage message={error.username} />}
         </div>
         <div>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
+          <FormInput
             placeholder="password"
             value={password}
             onChange={handleOnchangePassword}
             name="password"
+            isError={error.password}
+            errMessage={error.password}
           />
-          {error.password && <InputErrorMessage message={error.password} />}
         </div>
         <div>
           <button className="bg-blue-500 text-white w-full leading-[3rem] rounded-md text-xl font-bold">

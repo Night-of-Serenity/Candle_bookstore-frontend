@@ -1,11 +1,10 @@
 import { useState } from "react";
 import validateRegister from "../../../validators/validate-register";
-import InputErrorMessage from "./InputErrorMessage";
 import { useDispatch } from "react-redux";
 import { registerAsync } from "../../../store/slices/authSlice";
 import { toast } from "react-toastify";
 import { getAccessToken } from "../../../utils/localstorage";
-import { useNavigate } from "react-router-dom";
+import FormInput from "./FormInput";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -15,7 +14,6 @@ export default function RegisterForm() {
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSummit = (e) => {
     e.preventDefault();
@@ -34,7 +32,6 @@ export default function RegisterForm() {
         console.log("suceed register and get token:", token);
 
         if (res) {
-          navigate("/");
           toast.success("register succeed");
         }
       } catch (err) {
@@ -65,51 +62,45 @@ export default function RegisterForm() {
       <div className="grid gap-4">
         <h1 className="text-5xl text-center text-black p-3">Register</h1>
         <div>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
+          <FormInput
             placeholder="username"
             value={username}
             onChange={handleOnchangeUsername}
             name="username"
+            isError={error.username}
+            errMessage={error.username}
           />
-          {error.username && <InputErrorMessage message={error.username} />}
         </div>
         <div>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
+          <FormInput
             placeholder="email"
             value={email}
             onChange={handleOnchangeEmail}
             name="email"
+            isError={error.email}
+            errMessage={error.email}
           />
-          {error.email && <InputErrorMessage message={error.email} />}
         </div>
 
         <div>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
+          <FormInput
             placeholder="password"
             value={password}
             onChange={handleOnchangePassword}
             name="password"
+            isError={error.password}
+            errMessage={error.password}
           />
-          {error.password && <InputErrorMessage message={error.password} />}
         </div>
         <div>
-          <input
-            type="text"
-            className="block w-full border rounded-md px-4 py-3.5 outline-none focus:ring-1 border-gray-300 focus:border-blue-500 focus:ring-blue-300"
+          <FormInput
             placeholder="confirm password"
             value={confirmPassword}
             onChange={handleOnchangeConfirmPassword}
             name="confirmPassword"
+            isError={error.confirmPassword}
+            errMessage={error.confirmPassword}
           />
-          {error.confirmPassword && (
-            <InputErrorMessage message={error.confirmPassword} />
-          )}
         </div>
         <div>
           <button className="bg-blue-500 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
