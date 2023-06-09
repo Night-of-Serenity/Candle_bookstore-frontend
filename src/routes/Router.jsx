@@ -9,6 +9,11 @@ export default function Router() {
 
   const isAdmin = useSelector((state) => state.auth.isAdmin);
 
+  if (isAdmin && !isAuthenticated) {
+    console.log("error authenticate and admin condition routing state");
+    return;
+  }
+
   const appRoutes = isAdmin
     ? adminRoutes
     : isAuthenticated

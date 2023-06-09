@@ -15,7 +15,10 @@ export const registerAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await AuthApi.register(input);
-      return res.data;
+      setAccessToken(res.data.accessToken);
+      const resFetchMe = await AuthApi.fetchMe();
+      // console.log(resFetchMe);
+      return resFetchMe.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -29,7 +32,7 @@ export const loginAsync = createAsyncThunk(
       const res = await AuthApi.login(input);
       setAccessToken(res.data.accessToken);
       const resFetchMe = await AuthApi.fetchMe();
-      console.log(resFetchMe);
+      // console.log(resFetchMe);
       return resFetchMe.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -43,8 +46,13 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(registerAsync.fulfilled, (state) => {
-        state.actionSucceed = true;
+      .addCase(registerAsync.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        if (action.payload.isAdmin) {
+          state.isAdmin = action.payload.isAdmin;
+        }
+        state.user = action.payload;
+        console.log(action.payload);
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;

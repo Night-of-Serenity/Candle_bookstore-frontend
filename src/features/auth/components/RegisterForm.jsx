@@ -4,6 +4,8 @@ import InputErrorMessage from "./InputErrorMessage";
 import { useDispatch } from "react-redux";
 import { registerAsync } from "../../../store/slices/authSlice";
 import { toast } from "react-toastify";
+import { getAccessToken } from "../../../utils/localstorage";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -13,6 +15,7 @@ export default function RegisterForm() {
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSummit = (e) => {
     e.preventDefault();
@@ -27,8 +30,11 @@ export default function RegisterForm() {
         setError({});
 
         const res = await dispatch(registerAsync(input)).unwrap();
+        const token = getAccessToken();
+        console.log("suceed register and get token:", token);
 
         if (res) {
+          navigate("/");
           toast.success("register succeed");
         }
       } catch (err) {
