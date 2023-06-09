@@ -13,14 +13,11 @@ export default function Header() {
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div className="navbar navbar-center bg-base-100 text-white py-5">
+    <div className="navbar navbar-center bg-maindarkblue text-white py-5">
       <div className="flex-1">
-        <Link
-          to="/"
-          className="btn btn-ghost normal-case text-3xl text-primary"
-        >
+        <Link to="/" className="btn btn-ghost normal-case text-3xl">
           <BookIcon />
-          <h1>CANDLE</h1>
+          <span className="text-coreyellow">CANDLE</span>
         </Link>
         <div className="flex-1">
           <Searchbar />

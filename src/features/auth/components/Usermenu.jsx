@@ -6,7 +6,7 @@ export default function Usermenu({ isAdmin, username, onClickLogout }) {
       {isAdmin ? (
         <>
           <summary>{username}</summary>
-          <ul className="p-2 bg-base-100 right-3">
+          <ul className="p-2  right-3 ">
             <li>
               <Link>admin profile</Link>
             </li>
@@ -21,7 +21,7 @@ export default function Usermenu({ isAdmin, username, onClickLogout }) {
       ) : (
         <>
           <summary>{username}</summary>
-          <ul className="p-2 bg-base-100 right-3">
+          <ul className="p-2 right-3 ">
             <li>
               <Link>user profile</Link>
             </li>

@@ -2,14 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    // extend: {
-    //   colors: {
-    //     "base-100": "#1f2937",
-    //     primary: "#1f2937",
-    //     secondary: "#37475A",
-    //     accent: "#FFC73B",
-    //   },
-    // },
+    extend: {
+      colors: {
+        maindarkblue: "#1f2937",
+        mainlightblue: "#37475A",
+        mainpaper: "#FDFBF6",
+        mainyellow: "#FFC73B",
+        mainbrown: "#78716c",
+      },
+    },
   },
   daisyui: {
     themes: [
