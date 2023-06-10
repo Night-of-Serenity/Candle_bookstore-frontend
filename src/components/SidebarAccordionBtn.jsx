@@ -1,26 +1,20 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
 import { AccordiionIcon } from "../icons";
+import { useLocation } from "react-router-dom";
 
 export default function SidebarAccordionBtn({ children }) {
+  const currentRoute = useLocation().pathname;
+  const className = currentRoute.startsWith("/filter/genres")
+    ? "flex items-center justify-between px-4 py-2 text-mainyellow group hover:bg-mainsmdarkblue hover:text-"
+    : "flex items-center justify-between px-4 py-2 text-white group hover:bg-mainsmdarkblue hover:text-gray-200";
   return (
     <li>
       <details className="group ">
-        <summary className="flex items-center justify-between px-4 py-2 text-white group hover:bg-mainsmdarkblue hover:text-gray-200">
+        <summary className={className}>
           <span className="text-sm font-medium"> Genres </span>
           <AccordiionIcon />
         </summary>
-        <ul className="mt-2 space-y-1 ">
-          {children.map((genre) => (
-            <li key={genre.id}>
-              <Link
-                href=""
-                className="block py-2 py-4 pl-8 text-sm font-medium text-gray-400 hover:bg-gray-800 hover:text-gray-200"
-              >
-                {genre.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <ul className="mt-2 space-y-1 ">{children}</ul>
       </details>
     </li>
   );

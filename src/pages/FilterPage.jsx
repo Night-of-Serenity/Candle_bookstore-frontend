@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Sidebar from "../layouts/Sidebar";
 import Content from "../layouts/Content";
 

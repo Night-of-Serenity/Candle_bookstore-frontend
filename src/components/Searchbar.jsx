@@ -15,7 +15,7 @@ export default function Searchbar() {
           />
           <button
             type="submit"
-            className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-yellow-400 rounded-r-lg border border-neutral hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:yellow-500"
+            className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-yellow-400 rounded-r-lg border border-maindarkblue border-l-0 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:yellow-500"
           >
             <SearchIcon />
           </button>

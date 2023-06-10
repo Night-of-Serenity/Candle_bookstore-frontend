@@ -21,28 +21,28 @@ const authUserRoutes = [
         element: <Homepage />,
       },
       {
-        path: "/bestseller",
+        path: "/filter/bestseller",
         element: <FilterPage pageTitle="bestseller" />,
       },
       {
-        path: "/promotions",
+        path: "/filter/promotions",
         element: <FilterPage pageTitle="promotions" />,
       },
-      { path: "/all", element: <FilterPage pageTitle="all" /> },
+      { path: "/filter/all", element: <FilterPage pageTitle="all" /> },
       {
-        path: "/search",
+        path: "/filter/search",
         element: <FilterPage pageTitle="search" />,
       },
       {
-        path: "/author",
+        path: "/filter/author",
         element: <FilterPage pageTitle="author" />,
       },
       {
-        path: "/genres/",
+        path: "/filter/genres/:genreId",
         element: <FilterPage pageTitle="genres" />,
       },
       {
-        path: "/books/:bookid",
+        path: "/books/:bookId",
         element: <div>book detail</div>,
       },
 
