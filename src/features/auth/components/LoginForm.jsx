@@ -48,7 +48,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSummit}>
       <div className="grid gap-4">
-        <h1 className="p-3 text-5xl text-center text-black">Log in</h1>
+        <h1 className="p-3 mb-5 text-5xl text-center text-gray-500">Sign In</h1>
         <div>
           <FormInput
             type="text"
@@ -71,7 +71,7 @@ export default function LoginForm() {
             errMessage={error.password}
           />
         </div>
-        <div>
+        <div className="mt-5">
           <button className="bg-slate-500 hover:bg-slate-700 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
             Log in
           </button>

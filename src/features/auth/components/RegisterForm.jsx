@@ -60,7 +60,9 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSummit}>
       <div className="grid gap-4">
-        <h1 className="p-3 text-5xl text-center text-black">Register</h1>
+        <h1 className="p-3 mb-5 text-5xl text-center text-gray-500">
+          Register
+        </h1>
         <div>
           <FormInput
             type="text"
@@ -106,7 +108,7 @@ export default function RegisterForm() {
             errMessage={error.confirmPassword}
           />
         </div>
-        <div>
+        <div className="mt-5">
           <button className="bg-slate-500 hover:bg-slate-700 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
             Create Account
           </button>
