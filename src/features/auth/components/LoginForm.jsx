@@ -51,6 +51,7 @@ export default function LoginForm() {
         <h1 className="p-3 text-5xl text-center text-black">Log in</h1>
         <div>
           <FormInput
+            type="text"
             value={username}
             placeholder="username"
             onChange={handleOnchangeUsername}
@@ -61,6 +62,7 @@ export default function LoginForm() {
         </div>
         <div>
           <FormInput
+            type="password"
             placeholder="password"
             value={password}
             onChange={handleOnchangePassword}

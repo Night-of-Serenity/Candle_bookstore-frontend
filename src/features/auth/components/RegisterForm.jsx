@@ -63,6 +63,7 @@ export default function RegisterForm() {
         <h1 className="p-3 text-5xl text-center text-black">Register</h1>
         <div>
           <FormInput
+            type="text"
             placeholder="username"
             value={username}
             onChange={handleOnchangeUsername}
@@ -73,6 +74,7 @@ export default function RegisterForm() {
         </div>
         <div>
           <FormInput
+            type="email"
             placeholder="email"
             value={email}
             onChange={handleOnchangeEmail}
@@ -84,6 +86,7 @@ export default function RegisterForm() {
 
         <div>
           <FormInput
+            type="password"
             placeholder="password"
             value={password}
             onChange={handleOnchangePassword}
@@ -94,6 +97,7 @@ export default function RegisterForm() {
         </div>
         <div>
           <FormInput
+            type="password"
             placeholder="confirm password"
             value={confirmPassword}
             onChange={handleOnchangeConfirmPassword}

@@ -1,6 +1,7 @@
 import InputErrorMessage from "./InputErrorMessage";
 
 export default function FormInput({
+  type,
   inputValue,
   placeholder,
   inputName,
@@ -14,7 +15,7 @@ export default function FormInput({
   return (
     <>
       <input
-        type="text"
+        type={type}
         className={className}
         placeholder={placeholder}
         value={inputValue}
