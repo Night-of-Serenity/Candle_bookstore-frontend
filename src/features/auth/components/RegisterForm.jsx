@@ -103,7 +103,7 @@ export default function RegisterForm() {
           />
         </div>
         <div>
-          <button className="bg-blue-500 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
+          <button className="bg-slate-500 hover:bg-slate-700 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
             Create Account
           </button>
         </div>

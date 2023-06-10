@@ -47,8 +47,8 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSummit}>
-      <div className="grid grid- gap-4">
-        <h1 className="text-5xl text-center text-black p-3">Log in</h1>
+      <div className="grid gap-4">
+        <h1 className="p-3 text-5xl text-center text-black">Log in</h1>
         <div>
           <FormInput
             value={username}
@@ -70,7 +70,7 @@ export default function LoginForm() {
           />
         </div>
         <div>
-          <button className="bg-blue-500 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
+          <button className="bg-slate-500 hover:bg-slate-700 text-white w-full leading-[3rem] rounded-md text-xl font-bold">
             Log in
           </button>
         </div>
