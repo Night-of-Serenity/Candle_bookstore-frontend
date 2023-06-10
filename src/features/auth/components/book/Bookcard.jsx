@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+
 export default function Bookcard() {
-  return <div>Bookcard</div>;
+  const booksList = useSelector((state) => state.booksList);
+  console.log(booksList);
+  return <div></div>;
 }

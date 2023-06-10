@@ -9,7 +9,7 @@ export default function SidebarMenu() {
     { title: "Drama", id: 3, author: "Jom" },
   ];
   const currentRoute = useLocation().pathname;
-  console.log(currentRoute);
+  // console.log(currentRoute);
   const genreClass = (genreId) => {
     return currentRoute === `/filter/genres/${genreId}`
       ? "block py-2 pl-8 text-sm font-medium text-mainyellow hover:bg-gray-800 hover:text-mainyellow"

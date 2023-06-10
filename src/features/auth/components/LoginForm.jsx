@@ -32,7 +32,7 @@ export default function LoginForm() {
         }
         setError({});
 
-        console.log(input);
+        // console.log(input);
         const res = await dispatch(loginAsync(input)).unwrap();
 
         if (res) {
