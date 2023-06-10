@@ -2,6 +2,7 @@ import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
+import FilterPage from "../pages/FilterPage";
 
 import Container from "../layouts/Container";
 const authUserRoutes = [
@@ -10,7 +11,6 @@ const authUserRoutes = [
     element: (
       <>
         <Header />
-        AuthUser
         <Container />
         <Footer />
       </>
@@ -22,23 +22,24 @@ const authUserRoutes = [
       },
       {
         path: "/bestseller",
-        element: <div>Bestseller</div>,
+        element: <FilterPage pageTitle="bestseller" />,
       },
       {
         path: "/promotions",
-        element: <div>Promotions</div>,
+        element: <FilterPage pageTitle="promotions" />,
       },
+      { path: "/all", element: <FilterPage pageTitle="all" /> },
       {
         path: "/search",
-        element: <div>Search</div>,
+        element: <FilterPage pageTitle="search" />,
       },
       {
         path: "/author",
-        element: <div>Author</div>,
+        element: <FilterPage pageTitle="author" />,
       },
       {
         path: "/genres/",
-        element: <div>Genre</div>,
+        element: <FilterPage pageTitle="genres" />,
       },
       {
         path: "/books/:bookid",
@@ -47,19 +48,19 @@ const authUserRoutes = [
 
       {
         path: "/orderslist",
-        element: <div>purchased history</div>,
+        element: <div>orderslist</div>,
       },
       {
         path: "/cart",
-        element: <div>cart page</div>,
+        element: <div>cart</div>,
       },
       {
         path: "/checkout",
-        element: <div>checkout page</div>,
+        element: <div>checkout</div>,
       },
       {
         path: "/profile",
-        element: <div>user profile page</div>,
+        element: <div>user profile</div>,
       },
     ],
   },

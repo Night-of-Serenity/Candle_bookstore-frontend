@@ -30,6 +30,7 @@ const publicRoutes = [
         path: "/promotions",
         element: <div>Promotions</div>,
       },
+      { path: "/all", element: <div>All</div> },
       {
         path: "/search",
         element: <div>Search</div>,

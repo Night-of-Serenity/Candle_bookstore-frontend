@@ -8,7 +8,6 @@ const adminRoutes = [
     element: (
       <>
         <Header />
-        Admin
         <Container />
         <Footer />
       </>

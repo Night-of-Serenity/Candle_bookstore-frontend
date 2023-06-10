@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SidebarAccordionBtn from "./SidebarAccordionBtn";
 import SidebarCommonBtn from "./SidebarCommonBtn";
 
@@ -9,9 +10,9 @@ export default function SidebarMenu() {
   ];
   return (
     <ul className="mt-10 space-y-1">
-      <SidebarCommonBtn>Bestseller</SidebarCommonBtn>
-      <SidebarCommonBtn>Promotions</SidebarCommonBtn>
-      <SidebarCommonBtn>All</SidebarCommonBtn>
+      <SidebarCommonBtn to="/bestseller" title="Bestseller" />
+      <SidebarCommonBtn to="/promotions" title="Promotions" />
+      <SidebarCommonBtn to="/all" title="All" />
       <SidebarAccordionBtn>{genres}</SidebarAccordionBtn>
     </ul>
   );
