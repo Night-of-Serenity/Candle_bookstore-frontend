@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
-import defaultImage from "../assets/default/blank.png";
+import defaultImage from "../../assets/default/blank.png";
 
 export default function Avatar() {
   const user = useSelector((state) => state.auth.user);

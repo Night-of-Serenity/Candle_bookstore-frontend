@@ -1,4 +1,4 @@
-import Avatar from "../../../components/Avatar";
+import Avatar from "./Avatar";
 import { useLocation } from "react-router-dom";
 import NavBtn from "./NavBtn";
 

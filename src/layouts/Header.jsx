@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Searchbar from "../components/Searchbar";
+import Searchbar from "../components/Navbar/Searchbar";
 import { BookIcon } from "../icons";
 import useAuth from "../hooks/useAuth";
-import AdminNav from "../features/auth/components/AdminNav";
-import UserNav from "../features/auth/components/UserNav";
-import GuestNav from "../features/auth/components/GuestNav";
+import AdminNav from "../components/Navbar/AdminNav";
+import UserNav from "../components/Navbar/UserNav";
+import GuestNav from "../components/Navbar/GuestNav";
 
 export default function Header() {
   const { isAdmin, isAuthUser } = useAuth();

@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logoutAsync } from "../../../store/slices/authSlice";
-
+import { logoutAsync } from "../../store/slices/authSlice";
 export default function Usermenu() {
   const {
     isAdmin,

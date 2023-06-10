@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { AccordiionIcon } from "../icons";
+import { AccordiionIcon } from "../../icons";
 import { useLocation } from "react-router-dom";
 
 export default function SidebarAccordionBtn({ children }) {

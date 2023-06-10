@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import Avatar from "../../../components/Avatar";
+import Avatar from "./Avatar";
 import { useLocation } from "react-router-dom";
 import Usermenu from "./Usermenu";
 import NavBtn from "./NavBtn";
-import { CartIcon } from "../../../icons";
+import { CartIcon } from "../../icons/index";
 
 export default function UserNav() {
   const currentRoute = useLocation().pathname;
