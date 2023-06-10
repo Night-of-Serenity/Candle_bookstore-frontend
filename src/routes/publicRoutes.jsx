@@ -5,7 +5,7 @@ import LoginPage from "../pages/LoginPage";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Container from "../layouts/Container";
-
+import FilterPage from "../pages/FilterPage";
 const publicRoutes = [
   {
     path: "/",
@@ -23,24 +23,24 @@ const publicRoutes = [
       },
       {
         path: "/filter/bestseller",
-        element: <div>Bestseller</div>,
+        element: <FilterPage pageTitle="bestseller" />,
       },
       {
         path: "/filter/promotions",
-        element: <div>Promotions</div>,
+        element: <FilterPage pageTitle="promotions" />,
       },
-      { path: "/filter/all", element: <div>All</div> },
+      { path: "/filter/all", element: <FilterPage pageTitle="all" /> },
       {
         path: "/filter/search",
-        element: <div>Search</div>,
+        element: <FilterPage pageTitle="search" />,
       },
       {
         path: "/filter/author",
-        element: <div>Author</div>,
+        element: <FilterPage pageTitle="author" />,
       },
       {
         path: "/filter/genres/:genreId",
-        element: <div>Genre</div>,
+        element: <FilterPage pageTitle="genres" />,
       },
       {
         path: "/books/:bookId",

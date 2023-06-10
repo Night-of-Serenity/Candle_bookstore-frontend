@@ -2,6 +2,8 @@ import { Outlet, Navigate } from "react-router-dom";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Container from "../layouts/Container";
+import StoremanagementPage from "../pages/StoremanagementPage";
+import OrdersmanagementPage from "../pages/OrdersmanagementPage";
 const adminRoutes = [
   {
     path: "/",
@@ -15,7 +17,7 @@ const adminRoutes = [
     children: [
       {
         path: "/",
-        element: <div>stock management page</div>,
+        element: <StoremanagementPage />,
       },
       {
         path: "/books/:bookid",
@@ -30,7 +32,7 @@ const adminRoutes = [
         path: "orders",
         element: <Outlet />,
         children: [
-          { path: "", element: <div>orders list page</div> },
+          { path: "", element: <OrdersmanagementPage /> },
           { path: ":orderid", element: <div>order details</div> },
           {
             path: "user/:userid",
