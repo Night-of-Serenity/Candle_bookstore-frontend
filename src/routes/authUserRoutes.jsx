@@ -1,18 +1,13 @@
-import Header from "../layouts/Header";
-import Footer from "../layouts/Footer";
 import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import FilterPage from "../pages/FilterPage";
-
 import Container from "../layouts/Container";
 const authUserRoutes = [
   {
     path: "/",
     element: (
       <>
-        <Header />
         <Container />
-        <Footer />
       </>
     ),
     children: [

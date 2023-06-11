@@ -2,8 +2,6 @@ import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
-import Header from "../layouts/Header";
-import Footer from "../layouts/Footer";
 import Container from "../layouts/Container";
 import FilterPage from "../pages/FilterPage";
 const publicRoutes = [
@@ -11,9 +9,7 @@ const publicRoutes = [
     path: "/",
     element: (
       <>
-        <Header />
         <Container />
-        <Footer />
       </>
     ),
     children: [

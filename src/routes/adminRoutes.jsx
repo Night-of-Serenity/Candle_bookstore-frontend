@@ -1,6 +1,4 @@
 import { Outlet, Navigate } from "react-router-dom";
-import Header from "../layouts/Header";
-import Footer from "../layouts/Footer";
 import Container from "../layouts/Container";
 import StoremanagementPage from "../pages/StoremanagementPage";
 import OrdersmanagementPage from "../pages/OrdersmanagementPage";
@@ -9,9 +7,7 @@ const adminRoutes = [
     path: "/",
     element: (
       <>
-        <Header />
         <Container />
-        <Footer />
       </>
     ),
     children: [

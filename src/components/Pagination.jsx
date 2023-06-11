@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Pagination() {
   return (
     <>
-      <ol className="flex justify-center gap-1 text-xs font-medium">
+      <ol className="flex justify-center gap-1 text-xs font-medium mt-10">
         <li>
           <Link
             href="#"
@@ -25,34 +25,34 @@ export default function Pagination() {
           </Link>
         </li>
         <li>
-          <a
+          <Link
             href="#"
             className="block w-8 h-8 leading-8 text-center text-gray-900 bg-white border border-gray-100 rounded"
           >
             1
-          </a>
+          </Link>
         </li>
         <li className="block w-8 h-8 leading-8 text-center text-white bg-blue-600 border-blue-600 rounded">
           2
         </li>
         <li>
-          <a
+          <Link
             href="#"
             className="block w-8 h-8 leading-8 text-center text-gray-900 bg-white border border-gray-100 rounded"
           >
             3
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             href="#"
             className="block w-8 h-8 leading-8 text-center text-gray-900 bg-white border border-gray-100 rounded"
           >
             4
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             href="#"
             className="inline-flex items-center justify-center w-8 h-8 text-gray-900 bg-white border border-gray-100 rounded "
           >
@@ -69,7 +69,7 @@ export default function Pagination() {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </Link>
         </li>
       </ol>
     </>

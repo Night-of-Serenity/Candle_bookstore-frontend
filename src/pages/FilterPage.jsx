@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import Sidebar from "../layouts/Sidebar";
-import Content from "../layouts/Content";
+import BookContainer from "../features/book/components/BookContainer";
 
-export default function FilterPage({ pageTitle }) {
+export default function FilterPage() {
   return (
-    <div className="flex h-full">
+    <>
       <Sidebar />
       <div className="flex-1">
-        <Content pageTitle={pageTitle} />
+        <BookContainer />
       </div>
-    </div>
+    </>
   );
 }
