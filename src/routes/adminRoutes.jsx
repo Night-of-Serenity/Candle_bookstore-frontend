@@ -2,6 +2,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import Container from "../layouts/Container";
 import StoremanagementPage from "../pages/StoremanagementPage";
 import OrdersmanagementPage from "../pages/OrdersmanagementPage";
+import AddBookPage from "../pages/AddBookPage";
 const adminRoutes = [
   {
     path: "/",
@@ -16,14 +17,14 @@ const adminRoutes = [
         element: <StoremanagementPage />,
       },
       {
-        path: "/books/:bookid",
+        path: "/books/bookdetail/:bookid",
         element: <Outlet />,
         children: [
           { path: "", element: <div>book detail</div> },
           { path: "editbook", element: <div>edit book page</div> },
-          { path: "addbook", element: <div>add book page</div> },
         ],
       },
+      { path: "/books/addbook", element: <AddBookPage /> },
       {
         path: "orders",
         element: <Outlet />,

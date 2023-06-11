@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Pagination from "../../../components/Pagination";
 import BookStockList from "./BookStockList";
 export default function BookStock() {
@@ -14,11 +15,11 @@ export default function BookStock() {
       </div>
       <div className="flex items-center mt-5">
         <Pagination />
-        <span>
+        <Link to="/books/addbook">
           <button className="btn btn-primary btn-sm rounded-md ">
             Add Book
           </button>
-        </span>
+        </Link>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function BookListItem({
   return (
     <tr
       className="hover:bg-slate-500 hover:text-white hover:font-normal hover:cursor-pointer"
-      onClick={() => navigate(`/books/${bookId}`)}
+      onClick={() => navigate(`/books/bookdetail/${bookId}`)}
     >
       <td>{bookId}</td>
       <td>
