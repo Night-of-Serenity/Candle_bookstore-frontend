@@ -21,6 +21,7 @@ const newBooksList = booksFile.map((book) => {
 
 const initialState = {
   booksList: newBooksList,
+  genresList: genres,
 };
 
 const bookSlice = createSlice({

@@ -1,21 +1,13 @@
-import Bookcard from "../../book/components/Bookcard";
-export default function Bookrow() {
+/* eslint-disable react/prop-types */
+export default function Bookrow({ title, children }) {
   return (
-    <div className="flex justify-evenly">
-      <div className="w-20">
-        <Bookcard />
+    <div className="flex-1 my-5">
+      <div className="flex justify-between p-3">
+        <div className="text-slate-700 font-semibold">{title}</div>
+        <div className="text-slate-500">see more</div>
       </div>
-      <div className="w-20">
-        <Bookcard />
-      </div>
-      <div className="w-20">
-        <Bookcard />
-      </div>
-      <div className="w-20">
-        <Bookcard />
-      </div>
-      <div className="w-20">
-        <Bookcard />
+      <div>
+        <div className="flex justify-evenly gap-3">{children}</div>;
       </div>
     </div>
   );
