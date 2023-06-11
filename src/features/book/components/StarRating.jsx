@@ -7,8 +7,9 @@ export default function StarRating({ rating = 0 }) {
   }
   const ratingArr = [];
   for (let i = 0; i < 5; i++) {
-    if (i < rating) ratingArr.push(<StarIconFill />);
-    else ratingArr.push(<StarIconNone />);
+    if (i < rating)
+      ratingArr.push(<StarIconFill key={`(${i + Math.random() * 10}`} />);
+    else ratingArr.push(<StarIconNone key={`(${i + Math.random() * 10}`} />);
   }
   return <div className="flex">{ratingArr}</div>;
 }
