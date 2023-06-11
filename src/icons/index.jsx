@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-export function BookIcon({ className = null }) {
+export function BookIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +8,9 @@ export function BookIcon({ className = null }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="black"
-      className={className || "w-10 h-10"}
+      width={"2.5rem"}
+      height={"2.5rem"}
+      {...props}
     >
       <path
         strokeLinecap="round"
