@@ -1,7 +1,7 @@
 import Avatar from "./Avatar";
 import { useLocation } from "react-router-dom";
-import Usermenu from "./Usermenu";
 import NavBtn from "./NavBtn";
+import AdminMenu from "./AdminMenu";
 
 export default function AdminNav() {
   const currentRoute = useLocation().pathname;
@@ -17,10 +17,7 @@ export default function AdminNav() {
       <NavBtn isActive={currentRoute.startsWith("/orders")} to={"/orders"}>
         <span>Orders</span>
       </NavBtn>
-
-      <li>
-        <Usermenu />
-      </li>
+      <AdminMenu />
       <li>
         <div className="w-50">
           <Avatar />

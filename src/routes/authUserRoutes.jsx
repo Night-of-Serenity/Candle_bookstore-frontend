@@ -42,8 +42,8 @@ const authUserRoutes = [
       },
 
       {
-        path: "/orderslist",
-        element: <div>orderslist</div>,
+        path: "/purschasedHistory",
+        element: <div>purschased history</div>,
       },
       {
         path: "/cart",

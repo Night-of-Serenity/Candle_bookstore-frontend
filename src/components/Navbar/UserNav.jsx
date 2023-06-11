@@ -27,10 +27,7 @@ export default function UserNav() {
           </span>
         </div>
       </NavBtn>
-
-      <li>
-        <Usermenu />
-      </li>
+      <Usermenu />
       <li>
         <div className="w-50">
           <Avatar src={user?.profileImage} />
