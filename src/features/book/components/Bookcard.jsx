@@ -9,7 +9,7 @@ export default function Bookcard({
 }) {
   return (
     <div className="flex items-center flex-1 justify-center rounded-md w-full">
-      <div className="card bg-slate-400 shadow-xl h-full ">
+      <div className="card bg-slate-400 shadow-xl h-full py-2">
         <figure className="">
           <img src={defaultBookCover} alt="bookcover" className="w-full" />
         </figure>

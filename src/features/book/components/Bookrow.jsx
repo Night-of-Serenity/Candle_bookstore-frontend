@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function Bookrow({ title, children }) {
   return (
-    <div className="flex-1 my-5">
+    <div className="my-5">
       <div className="flex justify-between p-3">
         <div className="text-slate-700 font-semibold">{title}</div>
         <div className="text-slate-500">see more</div>
