@@ -1,13 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import SidebarAccordionBtn from "./SidebarAccordionBtn";
 import SidebarCommonBtn from "./SidebarCommonBtn";
+import { useSelector } from "react-redux";
 
 export default function SidebarMenu() {
-  const genres = [
-    { title: "Sci-fi", id: 1, author: "John" },
-    { title: "Romance", id: 2, author: "Jim" },
-    { title: "Drama", id: 3, author: "Jom" },
-  ];
+  const genres = useSelector((state) => state.book.genresList);
   const currentRoute = useLocation().pathname;
   // console.log(currentRoute);
   const genreClass = (genreId) => {
@@ -27,7 +24,7 @@ export default function SidebarMenu() {
               to={`/filter/genres/${genre.id}`}
               className={genreClass(genre.id)}
             >
-              {genre.title}
+              {genre.genre}
             </Link>
           </li>
         ))}
