@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Pagination() {
   return (
     <>
-      <ol className="flex flex-1 justify-center gap-1 text-xs font-medium mt-10">
+      <ol className="flex flex-1 justify-center gap-1 text-xs font-medium">
         <li>
           <Link
             href="#"
