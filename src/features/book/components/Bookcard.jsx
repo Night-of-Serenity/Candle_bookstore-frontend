@@ -2,9 +2,13 @@
 import defaultBookCover from "../../../assets/default/book_cover_blank.png";
 import StarRating from "./StarRating";
 
-export default function Bookcard({ title, rating = 0, price }) {
+export default function Bookcard({
+  title = "Harry Potter",
+  rating = 0,
+  price = 0,
+}) {
   return (
-    <div className="flex items-center w-[200px] h-[250px] justify-center  rounded-md">
+    <div className="flex items-center flex-1 justify-center  rounded-md">
       <div className="card bg-slate-400 shadow-xl ">
         <figure className="">
           <img src={defaultBookCover} alt="bookcover" className="w-full" />
