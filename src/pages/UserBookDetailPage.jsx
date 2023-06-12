@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 export default function UserBookDetailsPage() {
-  const isAuthen = useSelector((state) => state.auth.isAuthenticated);
+  // const isAuthen = useSelector((state) => state.auth.isAuthenticated);
 
   // bookid param from url
   const { bookid } = useParams();
@@ -16,12 +16,7 @@ export default function UserBookDetailsPage() {
   const booksList = useSelector((state) => state.book.booksList);
   console.log(booksList);
 
-  const initialBook = booksList.find((book) => +book.id === +bookid);
-  console.log(initialBook);
-  const [bookDetail, setBookDetail] = useState(initialBook);
-
-  // book slice genreslist
-  const genres = useSelector((state) => state.book.genresList);
+  const bookDetail = booksList.find((book) => +book.id === +bookid);
 
   const [quantityInput, setQuantityInput] = useState(1);
 
@@ -68,8 +63,8 @@ export default function UserBookDetailsPage() {
               </div>
               <div className="mt-4">Price: {bookDetail.price}$</div>
               <div className="mt-4">
-                Discount:{" "}
-                {(bookDetail.discount * bookDetail.price).toFixed(2) || 0}$ (
+                Discount:
+                {(bookDetail.discount * bookDetail.price).toFixed(2)}$ (
                 {(bookDetail.discount * 100).toFixed()}%)
               </div>
               <div className="mt-4">Stock: {bookDetail?.quantity}</div>
@@ -81,10 +76,10 @@ export default function UserBookDetailsPage() {
                 </div>
               </div>
               <div className="mt-4">description</div>
-              <p className="bg-slate-500 p-2 rounded-md">
+              <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
                 {bookDetail.description}
               </p>
-              <div className="mt-8 flex gap-4">
+              <form className="mt-8 flex gap-4">
                 <div>
                   <label
                     htmlFor="quantity"
@@ -109,7 +104,7 @@ export default function UserBookDetailsPage() {
                 >
                   ADD TO CART
                 </button>
-              </div>
+              </form>
             </section>
           </div>
         </div>
