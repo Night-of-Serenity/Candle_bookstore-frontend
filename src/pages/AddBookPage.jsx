@@ -1,32 +1,44 @@
 // import bookCover from "../assets/book_covers/Think_Again-The_Power_of_Knowing_What_You_Don't_Know.jpg";
-import { useState } from "react";
+// import { useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
-import { useRef } from "react";
+// import { useRef } from "react";
 import StarRating from "../features/book/components/StarRating";
 import AddBookInput from "../features/book/components/AddBookInput";
 import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function AddBookPage() {
   // const [cover, setCover] = useState(null);
-  const imgInput = useRef();
-  console.log(imgInput);
+  // const imgInput = useRef();
+  // console.log(imgInput);
 
   const genres = useSelector((state) => state.book.genresList);
-  const initialGenres = genres.map((genre) => ({ ...genre, checked: false }));
-  const [genresInput, setGenresInput] = useState(initialGenres);
-  console.log(initialGenres);
 
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 
+  const onSubmit = (data) => {
+    console.log(data);
+    if (Object.keys(errors).length) {
+      Object.entries(errors).map(([errField, errObj]) => {
+        // console.log(`${errField} is ${errObj.type}`);
+        toast.error(`${errField} is ${errObj.type}`);
+      });
+    }
+  };
+  // console.log(watch("genres"));
+  // console.log(watch("title"));
   return (
-    <form className="bg-mainlightblue my-20 w-full pr-20">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-mainlightblue my-20 w-full pr-20"
+    >
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
@@ -62,6 +74,7 @@ export default function AddBookPage() {
                   idName="bookTitle"
                   type="text"
                   placeholder={"Book Title"}
+                  formSubmit={register("title", { required: true })}
                 />
               </h1>
               <AddBookInput
@@ -69,6 +82,7 @@ export default function AddBookPage() {
                 type="text"
                 placeholder={"Author's name"}
                 inputName={"author"}
+                formSubmit={register("author", { required: true })}
               />
             </div>
             <div className="mt-8 flex">
@@ -78,46 +92,13 @@ export default function AddBookPage() {
               <fieldset>
                 <legend className="mb-1 text-sm font-medium">Genre</legend>
                 <div className="flex flex-wrap gap-1">
-                  {genresInput.map((genreItem) => (
+                  {genres.map((genre) => (
                     <GenreCheckbox
-                      register={register}
-                      key={genreItem.id}
-                      // name={genreItem.id}
-                      genre={genreItem.genre}
-                      // isChecked={genreItem.checked}
-                      // onChange={handleOnChangeGenres}
+                      key={genre.id}
+                      genre={genre.genre}
+                      onSubmit={register}
                     />
                   ))}
-                  {/* <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
-                      checked={isChecked}
-                      onChange={onChange}
-                      name={id}
-                    />
-                    <span>{genre}</span>
-                  </label>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
-                      checked={isChecked}
-                      onChange={onChange}
-                      name={id}
-                    />
-                    <span>{genre}</span>
-                  </label>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
-                      checked={isChecked}
-                      onChange={onChange}
-                      name={id}
-                    />
-                    <span>{genre}</span>
-                  </label> */}
                 </div>
               </fieldset>
 
@@ -135,6 +116,7 @@ export default function AddBookPage() {
                   defaultValue={1}
                   placeholder="1"
                   className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                  {...register("pages", { required: true })}
                 />
               </div>
               <div className="mt-4">
@@ -151,6 +133,7 @@ export default function AddBookPage() {
                   defaultValue={2023}
                   placeholder="2023"
                   className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                  {...register("publishedYear", { required: true })}
                 />
               </div>
               <div className="mt-4">
@@ -164,10 +147,11 @@ export default function AddBookPage() {
                   type="number"
                   id="price"
                   min={0}
-                  defaultValue={0.01}
-                  placeholder="0.01"
+                  defaultValue={10.0}
+                  placeholder="10.00"
                   step=".01"
                   className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                  {...register("price", { required: true })}
                 />
               </div>
               <div className="mt-4">
@@ -181,10 +165,11 @@ export default function AddBookPage() {
                   type="number"
                   id="discount"
                   min={0}
-                  defaultValue={0.01}
-                  placeholder="0.01"
+                  defaultValue={0.0}
+                  placeholder="0.00"
                   step=".01"
                   className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                  {...register("discount")}
                 />
               </div>
               <div className="mt-4">
@@ -201,6 +186,7 @@ export default function AddBookPage() {
                   defaultValue={1}
                   placeholder="1"
                   className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                  {...register("quantity")}
                 />
               </div>
               <div className="mt-4">
@@ -214,6 +200,7 @@ export default function AddBookPage() {
                     description
                   </legend>
                   <textarea
+                    {...register("description")}
                     className=" text-sm textarea-lg min-w-[600px] h-[150px] text-black bg-white"
                     placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ex odit officia repudiandae? Excepturi eaque ipsum temporibus. Sed ullam optio consequatur officiis numquam neque culpa maiores placeat nobis mollitia voluptates aliquam, deserunt qui similique voluptas tempora. Eaque nemo illum odio recusandae necessitatibus, quas, iure repudiandae iusto provident et, harum possimus reiciendis soluta nobis perspiciatis deleniti. Repellendus totam temporibus harum quis."
                   ></textarea>
