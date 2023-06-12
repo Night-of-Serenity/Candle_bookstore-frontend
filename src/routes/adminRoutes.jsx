@@ -25,7 +25,11 @@ const adminRoutes = [
           { path: "editbook", element: <div>edit book page</div> },
         ],
       },
-      { path: "/books/addbook", element: <AddBookPage /> },
+      {
+        path: "/books/addbook",
+        element: <Outlet />,
+        children: [{ index: true, element: <AddBookPage /> }],
+      },
       {
         path: "orders",
         element: <Outlet />,

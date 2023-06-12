@@ -16,10 +16,6 @@ export default function AddBookPage() {
   const initialGenres = genres.map((genre) => ({ ...genre, checked: false }));
   const [genresInput, setGenresInput] = useState(initialGenres);
   console.log(initialGenres);
-  // const handleOnChangeGenres = (e) => {
-  //   console.dir(e.target);
-  //   setGenresInput(state=>({...state,...state[e.tartget.name].checked : e.target.checked}))
-  // };
 
   return (
     <form className="bg-mainlightblue my-20 w-full pr-20">
@@ -27,7 +23,10 @@ export default function AddBookPage() {
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
             <div className="w-[300px]">
-              <img alt="bookcover" src={cover || defaultCover} />
+              <img
+                alt="bookcover"
+                src={cover ? URL.createObjectURL(cover) : defaultCover}
+              />
             </div>
             <input
               type="file"
@@ -35,12 +34,18 @@ export default function AddBookPage() {
               className="hidden"
               onChange={(e) => {
                 console.log(e);
-                setCover(e.target.files[0]);
+                if (e.target.files[0]) {
+                  setCover(e.target.files[0]);
+                }
               }}
             ></input>
             <button
               className="btn btn-primary btn-outline btn-sm"
-              onClick={() => imgInput.current.click()}
+              role="button"
+              onClick={(e) => {
+                e.preventDefault();
+                imgInput.current.click();
+              }}
             >
               Change cover
             </button>
@@ -180,22 +185,6 @@ export default function AddBookPage() {
               </div>
 
               <div className="mt-8 flex gap-4">
-                {/* <div>
-                  <label
-                    htmlFor="quantity"
-                    className=" mr-2 text-sm font-medium text-white"
-                  >
-                    <span>Qty</span>
-                  </label>
-                  <input
-                    type="number"
-                    id="quantity"
-                    min={1}
-                    defaultValue={1}
-                    placeholder="1"
-                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  />
-                </div> */}
                 <button
                   type="submit"
                   className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"

@@ -4,6 +4,7 @@ import FilterPage from "../pages/FilterPage";
 import Container from "../layouts/Container";
 import UserBookDetailPage from "../pages/UserBookDetailPage";
 import CartPage from "../pages/CartPage";
+import CheckoutPage from "../pages/CheckoutPage";
 const authUserRoutes = [
   {
     path: "/",
@@ -53,7 +54,7 @@ const authUserRoutes = [
       },
       {
         path: "/checkout",
-        element: <div>checkout</div>,
+        element: <CheckoutPage />,
       },
       {
         path: "/profile",

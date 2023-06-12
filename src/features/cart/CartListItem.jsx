@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import defaultCover from "../../assets/default/book_cover_blank.png";
 import { BinIcon } from "../../icons";
 

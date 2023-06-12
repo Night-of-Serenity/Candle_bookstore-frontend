@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import CartListItem from "../features/cart/cartListItem";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -33,10 +34,11 @@ export default function CartPage() {
                     <div className="flex justify-between">
                       <dt>Subtotal</dt>
                       <dd>
-                        {cartItems.reduce(
-                          (sum, item) => item.price * item.quantity,
-                          0
-                        )}
+                        {cartItems
+                          .reduce((sum, item) => {
+                            return sum + item.price * item.quantity;
+                          }, 0)
+                          .toFixed(2)}
                         $
                       </dd>
                     </div>
@@ -44,34 +46,43 @@ export default function CartPage() {
                       <dt>Discount</dt>
                       <dd>
                         -
-                        {cartItems.reduce(
-                          (sum, item) =>
-                            item.price * item.quantity * item.discount,
-                          0
-                        )}
+                        {cartItems
+                          .reduce(
+                            (sum, item) =>
+                              sum +
+                              item.price * item.quantity * (item.discount || 0),
+                            0
+                          )
+                          .toFixed(2)}
                         $
                       </dd>
                     </div>
                     <div className="flex justify-between !text-base font-medium">
                       <dt>Total</dt>
                       <dd>
-                        {cartItems.reduce(
-                          (sum, item) =>
-                            item.price * item.quantity * (1 - item.discount),
-                          0
-                        )}
+                        {cartItems
+                          .reduce((sum, item) => {
+                            return (
+                              sum +
+                              item.price *
+                                item.quantity *
+                                (1 - (item.discount || 0))
+                            );
+                          }, 0)
+                          .toFixed(2)}
                         $
                       </dd>
                     </div>
                   </dl>
 
                   <div className="flex justify-end">
-                    <a
+                    <Link
+                      to="/checkout"
                       href="#"
                       className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                     >
                       Checkout
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
