@@ -2,22 +2,29 @@
 import { useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import { useRef } from "react";
-import StarRating from "../features/book/components/StarRating";
+// import StarRating from "../features/book/components/StarRating";
 import AddBookInput from "../features/book/components/AddBookInput";
 import GenreCheckbox from "../features/book/components/GenreCheckbox";
+import { useSelector } from "react-redux";
 
 export default function AddBookPage() {
   const [cover, setCover] = useState(null);
   const imgInput = useRef();
   console.log(imgInput);
 
-  //   const handleCoverChange = (e) => {
-  //     console.log(e.target);
-  //   };
+  const genres = useSelector((state) => state.book.genresList);
+  const initialGenres = genres.map((genre) => ({ ...genre, checked: false }));
+  const [genresInput, setGenresInput] = useState(initialGenres);
+  console.log(initialGenres);
+  // const handleOnChangeGenres = (e) => {
+  //   console.dir(e.target);
+  //   setGenresInput(state=>({...state,...state[e.tartget.name].checked : e.target.checked}))
+  // };
+
   return (
     <form className="bg-mainlightblue my-20 w-full pr-20">
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
-        <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
             <div className="w-[300px]">
               <img alt="bookcover" src={cover || defaultCover} />
@@ -38,120 +45,140 @@ export default function AddBookPage() {
               Change cover
             </button>
           </div>
-          <div className="text-white">
-            <div className="mt-8 flex justify-between">
-              <div className="max-w-[35ch] space-y-2">
-                <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
-                  <AddBookInput
-                    idName="bookTitle"
-                    type="text"
-                    placeholder={"Book Title"}
-                  />
-                </h1>
+          <div className="text-white col-span-2">
+            <div className="max-w-[35ch] space-y-2">
+              <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
                 <AddBookInput
-                  idName="author"
+                  idName="bookTitle"
                   type="text"
-                  placeholder={"Author's name"}
-                  inputName={"author"}
+                  placeholder={"Book Title"}
                 />
-                <div className="-ms-0.5 flex">
+              </h1>
+              <AddBookInput
+                idName="author"
+                type="text"
+                placeholder={"Author's name"}
+                inputName={"author"}
+              />
+              {/* <div className="-ms-0.5 flex">
                   <StarRating className="fill-white" />
-                </div>
+                </div> */}
+            </div>
+
+            <div className="mt-4">
+              <div className="prose max-w-none">
+                <legend className="mb-1 text-sm font-medium text-white">
+                  description
+                </legend>
+                <textarea
+                  className=" text-sm textarea-lg w-[400px] h-[150px] text-black bg-white"
+                  placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor praesentium sapiente temporibus eius deleniti provident voluptatum officia molestias libero ab?"
+                ></textarea>
               </div>
             </div>
             <div className="mt-4">
-              <div className="prose max-w-none">
-                <textarea
-                  className=" text-sm textarea-lg w-[400px] h-[150px] text-black bg-white"
-                  placeholder="description"
-                ></textarea>
-              </div>
+              <label
+                htmlFor="pages"
+                className="mr-2 text-sm font-medium text-white"
+              >
+                <span>Pages</span>
+              </label>
+              <input
+                type="number"
+                id="pages"
+                min={1}
+                defaultValue={1}
+                placeholder="1"
+                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="publishedYear"
+                className="mr-2 text-sm font-medium text-white"
+              >
+                <span>Published year</span>
+              </label>
+              <input
+                type="number"
+                id="publishedYear"
+                min={1900}
+                defaultValue={2023}
+                placeholder="2023"
+                className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="price"
+                className="mr-2 text-sm font-medium text-white"
+              >
+                <span>Price</span>
+              </label>
+              <input
+                type="number"
+                id="price"
+                min={0}
+                defaultValue={0.01}
+                placeholder="0.01"
+                step=".01"
+                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+              />
+            </div>
+            <div className="mt-4">
+              <label
+                htmlFor="discount"
+                className="mr-2 text-sm font-medium text-white"
+              >
+                <span>discount</span>
+              </label>
+              <input
+                type="number"
+                id="discount"
+                min={0}
+                defaultValue={0.01}
+                placeholder="0.01"
+                step=".01"
+                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+              />
             </div>
             <section className="mt-8">
               <fieldset>
                 <legend className="mb-1 text-sm font-medium">Genre</legend>
                 <div className="flex flex-wrap gap-1">
-                  <GenreCheckbox genre={"Science - Fiction"} />
-                </div>
-              </fieldset>
-              <fieldset className="mt-4">
-                <legend className="mb-1 text-sm font-medium">Size</legend>
-                <div className="flex flex-wrap gap-1">
-                  <label htmlFor="size_xs" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="size_xs"
-                      className="peer sr-only"
+                  {genresInput.map((genreItem) => (
+                    <GenreCheckbox
+                      key={genreItem.id}
+                      name={genreItem.id}
+                      genre={genreItem.genre}
+                      // isChecked={genreItem.checked}
+                      // onChange={handleOnChangeGenres}
                     />
-                    <span className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white">
-                      XS
-                    </span>
-                  </label>
-                  <label htmlFor="size_s" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="size_s"
-                      className="peer sr-only"
-                    />
-                    <span className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white">
-                      S
-                    </span>
-                  </label>
-                  <label htmlFor="size_m" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="size_m"
-                      className="peer sr-only"
-                    />
-                    <span className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white">
-                      M
-                    </span>
-                  </label>
-                  <label htmlFor="size_l" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="size_l"
-                      className="peer sr-only"
-                    />
-                    <span className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white">
-                      L
-                    </span>
-                  </label>
-                  <label htmlFor="size_xl" className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="size"
-                      id="size_xl"
-                      className="peer sr-only"
-                    />
-                    <span className="group inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium peer-checked:bg-black peer-checked:text-white">
-                      XL
-                    </span>
-                  </label>
+                  ))}
                 </div>
               </fieldset>
               <div className="mt-8 flex gap-4">
                 <div>
-                  <label htmlFor="quantity" className="sr-only">
-                    Qty
+                  <label
+                    htmlFor="quantity"
+                    className=" mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Qty</span>
                   </label>
                   <input
                     type="number"
                     id="quantity"
                     min={1}
                     defaultValue={1}
-                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                    placeholder="1"
+                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500"
+                  className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
                 >
-                  Add to Cart
+                  ADD BOOK
                 </button>
               </div>
             </section>

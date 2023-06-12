@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 
-export default function GenreCheckbox({ genre, isChecked, onChange }) {
+export default function GenreCheckbox({ id, genre, isChecked, onChange }) {
   return (
     <label className="flex items-center space-x-2">
       <input
         type="checkbox"
-        className="form-checkbox h-4 w-4 text-yellow-500 rounded-full bg-yellow-400 outline-none focus:outline-none"
+        className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
         checked={isChecked}
         onChange={onChange}
+        name={id}
       />
       <span>{genre}</span>
     </label>
