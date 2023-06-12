@@ -1,16 +1,12 @@
 // import bookCover from "../assets/book_covers/Think_Again-The_Power_of_Knowing_What_You_Don't_Know.jpg";
 import { useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
-import { useRef } from "react";
 import StarRating from "../features/book/components/StarRating";
-import AddBookInput from "../features/book/components/AddBookInput";
-import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-export default function AdminBookDetailsPage() {
-  // editmode state
-  const [editMode, setEditMode] = useState(false);
+export default function UserBookDetailsPage() {
+  // const isAuthen = useSelector((state) => state.auth.isAuthenticated);
 
   // bookid param from url
   const { bookid } = useParams();
@@ -18,26 +14,11 @@ export default function AdminBookDetailsPage() {
 
   // book slice booklist bookdata
   const booksList = useSelector((state) => state.book.booksList);
-  //   console.log(booksList);
-  //   console.log("bookdetail", bookDetail);
+  console.log(booksList);
 
-  // book slice genreslist
-  const genres = useSelector((state) => state.book.genresList);
+  const bookDetail = booksList.find((book) => +book.id === +bookid);
 
-  // bookcover state
-  const [cover, setCover] = useState(null);
-  const imgInput = useRef();
-  console.log(imgInput);
-
-  // bookdetail genres input
-  const initialGenres = genres.map((genre) => ({ ...genre, checked: false }));
-  const [genresInput, setGenresInput] = useState(initialGenres);
-  console.log(initialGenres);
-
-  // const handleOnChangeGenres = (e) => {
-  //   console.dir(e.target);
-  //   setGenresInput(state=>({...state,...state[e.tartget.name].checked : e.target.checked}))
-  // };
+  const [quantityInput, setQuantityInput] = useState(1);
 
   return (
     <form className="bg-mainlightblue my-20 w-full pr-20">
@@ -45,160 +26,61 @@ export default function AdminBookDetailsPage() {
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
             <div className="w-[300px]">
-              <img alt="bookcover" src={cover || defaultCover} />
+              <img
+                alt="bookcover"
+                src={bookDetail?.bookCover || defaultCover}
+              />
             </div>
-            <input
-              type="file"
-              ref={imgInput}
-              className="hidden"
-              onChange={(e) => {
-                console.log(e);
-                setCover(e.target.files[0]);
-              }}
-            ></input>
-            <button
-              className="btn btn-primary btn-outline btn-sm"
-              onClick={() => imgInput.current.click()}
-            >
-              Change cover
-            </button>
           </div>
           <div className="text-white col-span-2">
             <div className="max-w-[35ch] space-y-2">
               <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
-                <AddBookInput
-                  idName="bookTitle"
-                  type="text"
-                  placeholder={"Book Title"}
-                />
+                {bookDetail.title}
               </h1>
-              <AddBookInput
-                idName="author"
-                type="text"
-                placeholder={"Author's name"}
-                inputName={"author"}
-              />
+              <p>By {bookDetail.author}</p>
             </div>
             <div className="mt-8 flex">
-              <StarRating className="fill-white" />
+              <StarRating rating={bookDetail.rating} className="fill-yellow" />
             </div>
             <section className="mt-8">
               <fieldset>
                 <legend className="mb-1 text-sm font-medium">Genre</legend>
                 <div className="flex flex-wrap gap-1">
-                  {genresInput.map((genreItem) => (
-                    <GenreCheckbox
-                      key={genreItem.id}
-                      name={genreItem.id}
-                      genre={genreItem.genre}
-                      // isChecked={genreItem.checked}
-                      // onChange={handleOnChangeGenres}
-                    />
+                  {bookDetail.Genres.map((genre) => (
+                    <span
+                      key={genre.id}
+                      className="btn btn-outline btn-primary btn-sm"
+                    >
+                      {genre.genre}
+                    </span>
                   ))}
                 </div>
               </fieldset>
 
+              <div className="mt-4">Pages: {bookDetail.pages}</div>
               <div className="mt-4">
-                <label
-                  htmlFor="pages"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Pages</span>
-                </label>
-                <input
-                  type="number"
-                  id="pages"
-                  min={1}
-                  defaultValue={1}
-                  placeholder="1"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                />
+                Published Year: {bookDetail.published_year}
               </div>
+              <div className="mt-4">Price: {bookDetail.price}$</div>
               <div className="mt-4">
-                <label
-                  htmlFor="publishedYear"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Published year</span>
-                </label>
-                <input
-                  type="number"
-                  id="publishedYear"
-                  min={1900}
-                  defaultValue={2023}
-                  placeholder="2023"
-                  className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                />
+                Discount:
+                {(bookDetail.discount * bookDetail.price).toFixed(2)}$ (
+                {(bookDetail.discount * 100).toFixed()}%)
               </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="price"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Price</span>
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  min={0}
-                  defaultValue={0.01}
-                  placeholder="0.01"
-                  step=".01"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                />
-              </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="discount"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Discount</span>
-                </label>
-                <input
-                  type="number"
-                  id="discount"
-                  min={0}
-                  defaultValue={0.01}
-                  placeholder="0.01"
-                  step=".01"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                />
-              </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="quantity"
-                  className=" mr-2 text-sm font-medium text-white"
-                >
-                  <span>Stock</span>
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  min={1}
-                  defaultValue={1}
-                  placeholder="1"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                />
-              </div>
+              <div className="mt-4">Stock: {bookDetail?.quantity}</div>
               <div className="mt-4">
                 <div className="flex justify-start">
-                  <div>Sale Quantity: 0 pcs. </div>
+                  <div>
+                    Sale Quantity: {bookDetail?.sale_quantity || 0} pcs.{" "}
+                  </div>
                 </div>
               </div>
-              <div className="mt-4">
-                <div className="prose max-w-none">
-                  <legend className="mb-1 text-sm font-medium text-white">
-                    description
-                  </legend>
-                  <textarea
-                    className=" text-sm textarea-lg min-w-[600px] h-[150px] text-black bg-white"
-                    placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ex odit officia repudiandae? Excepturi eaque ipsum temporibus. Sed ullam optio consequatur officiis numquam neque culpa maiores placeat nobis mollitia voluptates aliquam, deserunt qui similique voluptas tempora. Eaque nemo illum odio recusandae necessitatibus, quas, iure repudiandae iusto provident et, harum possimus reiciendis soluta nobis perspiciatis deleniti. Repellendus totam temporibus harum quis."
-                  ></textarea>
-                </div>
-              </div>
-
-              <div className="mt-8 flex gap-4">
-                {/* <div>
+              <div className="mt-4">description</div>
+              <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
+                {bookDetail.description}
+              </p>
+              <form className="mt-8 flex gap-4">
+                <div>
                   <label
                     htmlFor="quantity"
                     className=" mr-2 text-sm font-medium text-white"
@@ -212,15 +94,17 @@ export default function AdminBookDetailsPage() {
                     defaultValue={1}
                     placeholder="1"
                     className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    value={quantityInput}
+                    onChange={(e) => setQuantityInput(e.target.value)}
                   />
-                </div> */}
+                </div>
                 <button
                   type="submit"
                   className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
                 >
-                  ADD BOOK
+                  ADD TO CART
                 </button>
-              </div>
+              </form>
             </section>
           </div>
         </div>

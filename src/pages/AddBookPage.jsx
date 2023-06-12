@@ -8,6 +8,7 @@ import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import * as BookApi from "../api/book-api";
 
 export default function AddBookPage() {
   // const [cover, setCover] = useState(null);
@@ -15,23 +16,41 @@ export default function AddBookPage() {
   // console.log(imgInput);
 
   const genres = useSelector((state) => state.book.genresList);
-
+  console.log(genres);
   const {
     register,
     handleSubmit,
 
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    if (Object.keys(errors).length) {
-      Object.entries(errors).map(([errField, errObj]) => {
-        // console.log(`${errField} is ${errObj.type}`);
-        toast.error(`${errField} is ${errObj.type}`);
-      });
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+
+      // const formData = new FormData();
+      // Object.entries(data).forEach(([field, value]) =>
+      //   formData.append(field, value)
+      // );
+
+      // // Check formData Display the key/value pairs
+      // for (let pair of formData.entries()) {
+      //   console.log(pair[0] + ", " + pair[1]);
+      // }
+      const res = await BookApi.addbook(data);
+      console.log(res.data);
+      toast.success("add book successful");
+    } catch (err) {
+      toast.error(err.message);
     }
   };
+
+  // if (Object.keys(errors).length) {
+  //   Object.entries(errors).map(([errField, errObj]) => {
+  //     // console.log(`${errField} is ${errObj.type}`);
+  //     toast.error(`${errField} is ${errObj.type}`);
+  //   });
+  // }
   // console.log(watch("genres"));
   // console.log(watch("title"));
   return (
@@ -96,6 +115,7 @@ export default function AddBookPage() {
                     <GenreCheckbox
                       key={genre.id}
                       genre={genre.genre}
+                      id={genre.id}
                       onSubmit={register}
                     />
                   ))}

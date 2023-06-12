@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 
-export default function GenreCheckbox({ genre, onSubmit }) {
+export default function GenreCheckbox({ id, genre, onSubmit }) {
   return (
     <label className="flex items-center space-x-2">
       <input
         type="checkbox"
         className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
         {...onSubmit("genres")}
-        value={genre}
+        value={id}
       />
       <span>{genre}</span>
     </label>
