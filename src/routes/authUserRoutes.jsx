@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import FilterPage from "../pages/FilterPage";
 import Container from "../layouts/Container";
+import BookDetailPage from "../pages/BookDetailPage";
 const authUserRoutes = [
   {
     path: "/",
@@ -37,8 +38,8 @@ const authUserRoutes = [
         element: <FilterPage pageTitle="genres" />,
       },
       {
-        path: "/books/:bookId",
-        element: <div>book detail</div>,
+        path: "/books/bookdetail/:bookid",
+        element: <BookDetailPage />,
       },
 
       {

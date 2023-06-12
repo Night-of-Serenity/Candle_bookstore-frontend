@@ -3,8 +3,10 @@ import HeroContainer from "../components/HeroContainer";
 import Bookcard from "../features/book/components/Bookcard";
 import Bookrow from "../features/book/components/Bookrow";
 import Sidebar from "../layouts/Sidebar";
+import { useSelector } from "react-redux";
 
 export default function Homepage() {
+  const booksList = useSelector((state) => state.book.booksList);
   return (
     <>
       <Sidebar />
@@ -19,18 +21,26 @@ export default function Homepage() {
             <HeroContainer />
           </div>
           <Bookrow title="Best Seller">
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
+            {booksList.slice(0, 5).map((book) => (
+              <Bookcard
+                key={book.id}
+                id={book.id}
+                title={book.title}
+                rating={book.rating}
+                price={book.price}
+              />
+            ))}
           </Bookrow>
           <Bookrow title="Promotions">
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
-            <Bookcard />
+            {booksList.slice(5, 10).map((book) => (
+              <Bookcard
+                key={book.id}
+                id={book.id}
+                title={book.title}
+                rating={book.rating}
+                price={book.price}
+              />
+            ))}
           </Bookrow>
         </main>
       </div>

@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import Container from "../layouts/Container";
 import FilterPage from "../pages/FilterPage";
+import BookDetailPage from "../pages/BookDetailPage";
 const publicRoutes = [
   {
     path: "/",
@@ -39,8 +40,8 @@ const publicRoutes = [
         element: <FilterPage pageTitle="genres" />,
       },
       {
-        path: "/books/:bookId",
-        element: <div>book detail</div>,
+        path: "/books/bookdetail/:bookid",
+        element: <BookDetailPage />,
       },
       {
         path: "/login",

@@ -3,6 +3,7 @@ import Container from "../layouts/Container";
 import StoremanagementPage from "../pages/StoremanagementPage";
 import OrdersmanagementPage from "../pages/OrdersmanagementPage";
 import AddBookPage from "../pages/AddBookPage";
+import BookDetailPage from "../pages/BookDetailPage";
 const adminRoutes = [
   {
     path: "/",
@@ -20,7 +21,7 @@ const adminRoutes = [
         path: "/books/bookdetail/:bookid",
         element: <Outlet />,
         children: [
-          { path: "", element: <div>book detail</div> },
+          { path: "", element: <BookDetailPage /> },
           { path: "editbook", element: <div>edit book page</div> },
         ],
       },
