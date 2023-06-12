@@ -3,6 +3,7 @@ import Homepage from "../pages/Homepage";
 import FilterPage from "../pages/FilterPage";
 import Container from "../layouts/Container";
 import UserBookDetailPage from "../pages/UserBookDetailPage";
+import CartPage from "../pages/CartPage";
 const authUserRoutes = [
   {
     path: "/",
@@ -48,7 +49,7 @@ const authUserRoutes = [
       },
       {
         path: "/cart",
-        element: <div>cart</div>,
+        element: <CartPage />,
       },
       {
         path: "/checkout",
