@@ -37,7 +37,7 @@ export default function UserBookDetailsPage() {
               <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
                 {bookDetail.title}
               </h1>
-              {bookDetail.author}
+              <p>By {bookDetail.author}</p>
             </div>
             <div className="mt-8 flex">
               <StarRating rating={bookDetail.rating} className="fill-yellow" />
