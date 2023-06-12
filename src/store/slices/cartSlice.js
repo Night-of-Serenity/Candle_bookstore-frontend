@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cartItemsList: [
+  cartItems: [
     {
       id: 10,
-      quatity: 1,
+      quantity: 1,
       price: 10.09,
       title: "To Kill a Mockingbird",
       author: "Ray Bradbury",
@@ -12,7 +12,7 @@ const initialState = {
     },
     {
       id: 12,
-      quatity: 1,
+      quantity: 1,
       price: 20.65,
       discount: 0.19,
       title: "The Picture of Dorian Gray",
@@ -21,7 +21,7 @@ const initialState = {
     },
     {
       id: 26,
-      quatity: 1,
+      quantity: 1,
       price: 16.78,
       discount: 0.27,
       title: "The Strange Case of Dr. Jekyll and Mr. Hyde",
