@@ -6,9 +6,10 @@ import StarRating from "../features/book/components/StarRating";
 import AddBookInput from "../features/book/components/AddBookInput";
 import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 export default function AddBookPage() {
-  const [cover, setCover] = useState(null);
+  // const [cover, setCover] = useState(null);
   const imgInput = useRef();
   console.log(imgInput);
 
@@ -17,18 +18,22 @@ export default function AddBookPage() {
   const [genresInput, setGenresInput] = useState(initialGenres);
   console.log(initialGenres);
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
   return (
     <form className="bg-mainlightblue my-20 w-full pr-20">
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
             <div className="w-[300px]">
-              <img
-                alt="bookcover"
-                src={cover ? URL.createObjectURL(cover) : defaultCover}
-              />
+              <img alt="bookcover" src={defaultCover} />
             </div>
-            <input
+            {/* <input
               type="file"
               ref={imgInput}
               className="hidden"
@@ -48,7 +53,7 @@ export default function AddBookPage() {
               }}
             >
               Change cover
-            </button>
+            </button> */}
           </div>
           <div className="text-white col-span-2">
             <div className="max-w-[35ch] space-y-2">
@@ -75,13 +80,44 @@ export default function AddBookPage() {
                 <div className="flex flex-wrap gap-1">
                   {genresInput.map((genreItem) => (
                     <GenreCheckbox
+                      register={register}
                       key={genreItem.id}
-                      name={genreItem.id}
+                      // name={genreItem.id}
                       genre={genreItem.genre}
                       // isChecked={genreItem.checked}
                       // onChange={handleOnChangeGenres}
                     />
                   ))}
+                  {/* <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
+                      checked={isChecked}
+                      onChange={onChange}
+                      name={id}
+                    />
+                    <span>{genre}</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
+                      checked={isChecked}
+                      onChange={onChange}
+                      name={id}
+                    />
+                    <span>{genre}</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
+                      checked={isChecked}
+                      onChange={onChange}
+                      name={id}
+                    />
+                    <span>{genre}</span>
+                  </label> */}
                 </div>
               </fieldset>
 

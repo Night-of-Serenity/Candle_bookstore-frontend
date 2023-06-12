@@ -1,14 +1,22 @@
 /* eslint-disable react/prop-types */
 
-export default function GenreCheckbox({ id, genre, isChecked, onChange }) {
+export default function GenreCheckbox({
+  id,
+  genre,
+  isChecked,
+  onChange,
+  register,
+}) {
   return (
     <label className="flex items-center space-x-2">
       <input
         type="checkbox"
         className="form-checkbox h-4 w-4 text-yellow-500  bg-yellow-400 outline-none focus:outline-none"
-        checked={isChecked}
-        onChange={onChange}
-        name={id}
+        // checked={isChecked}
+        // onChange={onChange}
+        // name="genre"
+        {...register("genres")}
+        value={genre}
       />
       <span>{genre}</span>
     </label>
