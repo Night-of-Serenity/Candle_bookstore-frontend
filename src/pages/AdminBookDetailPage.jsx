@@ -6,13 +6,30 @@ import StarRating from "../features/book/components/StarRating";
 import AddBookInput from "../features/book/components/AddBookInput";
 import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-export default function AddBookPage() {
+export default function AdminBookDetailsPage() {
+  // editmode state
+  const [editMode, setEditMode] = useState(false);
+
+  // bookid param from url
+  const { bookid } = useParams();
+  console.log(bookid);
+
+  // book slice booklist bookdata
+  const booksList = useSelector((state) => state.book.booksList);
+  //   console.log(booksList);
+  //   console.log("bookdetail", bookDetail);
+
+  // book slice genreslist
+  const genres = useSelector((state) => state.book.genresList);
+
+  // bookcover state
   const [cover, setCover] = useState(null);
   const imgInput = useRef();
   console.log(imgInput);
 
-  const genres = useSelector((state) => state.book.genresList);
+  // bookdetail genres input
   const initialGenres = genres.map((genre) => ({ ...genre, checked: false }));
   const [genresInput, setGenresInput] = useState(initialGenres);
   console.log(initialGenres);

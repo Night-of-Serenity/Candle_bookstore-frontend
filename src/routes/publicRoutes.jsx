@@ -4,7 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import Container from "../layouts/Container";
 import FilterPage from "../pages/FilterPage";
-import BookDetailPage from "../pages/BookDetailPage";
+import UserBookDetailPage from "../pages/UserBookDetailPage";
 const publicRoutes = [
   {
     path: "/",
@@ -41,7 +41,7 @@ const publicRoutes = [
       },
       {
         path: "/books/bookdetail/:bookid",
-        element: <BookDetailPage />,
+        element: <UserBookDetailPage />,
       },
       {
         path: "/login",

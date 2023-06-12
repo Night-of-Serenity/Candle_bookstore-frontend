@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 import FilterPage from "../pages/FilterPage";
 import Container from "../layouts/Container";
-import BookDetailPage from "../pages/BookDetailPage";
+import UserBookDetailPage from "../pages/UserBookDetailPage";
 const authUserRoutes = [
   {
     path: "/",
@@ -39,7 +39,7 @@ const authUserRoutes = [
       },
       {
         path: "/books/bookdetail/:bookid",
-        element: <BookDetailPage />,
+        element: <UserBookDetailPage />,
       },
 
       {
