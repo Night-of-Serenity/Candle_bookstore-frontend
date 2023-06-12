@@ -2,7 +2,7 @@
 import { useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import { useRef } from "react";
-// import StarRating from "../features/book/components/StarRating";
+import StarRating from "../features/book/components/StarRating";
 import AddBookInput from "../features/book/components/AddBookInput";
 import GenreCheckbox from "../features/book/components/GenreCheckbox";
 import { useSelector } from "react-redux";
@@ -60,87 +60,9 @@ export default function AddBookPage() {
                 placeholder={"Author's name"}
                 inputName={"author"}
               />
-              {/* <div className="-ms-0.5 flex">
-                  <StarRating className="fill-white" />
-                </div> */}
             </div>
-
-            <div className="mt-4">
-              <div className="prose max-w-none">
-                <legend className="mb-1 text-sm font-medium text-white">
-                  description
-                </legend>
-                <textarea
-                  className=" text-sm textarea-lg w-[400px] h-[150px] text-black bg-white"
-                  placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor praesentium sapiente temporibus eius deleniti provident voluptatum officia molestias libero ab?"
-                ></textarea>
-              </div>
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="pages"
-                className="mr-2 text-sm font-medium text-white"
-              >
-                <span>Pages</span>
-              </label>
-              <input
-                type="number"
-                id="pages"
-                min={1}
-                defaultValue={1}
-                placeholder="1"
-                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-              />
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="publishedYear"
-                className="mr-2 text-sm font-medium text-white"
-              >
-                <span>Published year</span>
-              </label>
-              <input
-                type="number"
-                id="publishedYear"
-                min={1900}
-                defaultValue={2023}
-                placeholder="2023"
-                className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-              />
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="price"
-                className="mr-2 text-sm font-medium text-white"
-              >
-                <span>Price</span>
-              </label>
-              <input
-                type="number"
-                id="price"
-                min={0}
-                defaultValue={0.01}
-                placeholder="0.01"
-                step=".01"
-                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-              />
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="discount"
-                className="mr-2 text-sm font-medium text-white"
-              >
-                <span>Discount</span>
-              </label>
-              <input
-                type="number"
-                id="discount"
-                min={0}
-                defaultValue={0.01}
-                placeholder="0.01"
-                step=".01"
-                className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-              />
+            <div className="mt-8 flex">
+              <StarRating className="fill-white" />
             </div>
             <section className="mt-8">
               <fieldset>
@@ -157,8 +79,108 @@ export default function AddBookPage() {
                   ))}
                 </div>
               </fieldset>
+
+              <div className="mt-4">
+                <label
+                  htmlFor="pages"
+                  className="mr-2 text-sm font-medium text-white"
+                >
+                  <span>Pages</span>
+                </label>
+                <input
+                  type="number"
+                  id="pages"
+                  min={1}
+                  defaultValue={1}
+                  placeholder="1"
+                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="publishedYear"
+                  className="mr-2 text-sm font-medium text-white"
+                >
+                  <span>Published year</span>
+                </label>
+                <input
+                  type="number"
+                  id="publishedYear"
+                  min={1900}
+                  defaultValue={2023}
+                  placeholder="2023"
+                  className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="price"
+                  className="mr-2 text-sm font-medium text-white"
+                >
+                  <span>Price</span>
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  min={0}
+                  defaultValue={0.01}
+                  placeholder="0.01"
+                  step=".01"
+                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="discount"
+                  className="mr-2 text-sm font-medium text-white"
+                >
+                  <span>Discount</span>
+                </label>
+                <input
+                  type="number"
+                  id="discount"
+                  min={0}
+                  defaultValue={0.01}
+                  placeholder="0.01"
+                  step=".01"
+                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label
+                  htmlFor="quantity"
+                  className=" mr-2 text-sm font-medium text-white"
+                >
+                  <span>Stock</span>
+                </label>
+                <input
+                  type="number"
+                  id="quantity"
+                  min={1}
+                  defaultValue={1}
+                  placeholder="1"
+                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <div className="flex justify-start">
+                  <div>Sale Quantity: 0 pcs. </div>
+                </div>
+              </div>
+              <div className="mt-4">
+                <div className="prose max-w-none">
+                  <legend className="mb-1 text-sm font-medium text-white">
+                    description
+                  </legend>
+                  <textarea
+                    className=" text-sm textarea-lg min-w-[600px] h-[150px] text-black bg-white"
+                    placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ex odit officia repudiandae? Excepturi eaque ipsum temporibus. Sed ullam optio consequatur officiis numquam neque culpa maiores placeat nobis mollitia voluptates aliquam, deserunt qui similique voluptas tempora. Eaque nemo illum odio recusandae necessitatibus, quas, iure repudiandae iusto provident et, harum possimus reiciendis soluta nobis perspiciatis deleniti. Repellendus totam temporibus harum quis."
+                  ></textarea>
+                </div>
+              </div>
+
               <div className="mt-8 flex gap-4">
-                <div>
+                {/* <div>
                   <label
                     htmlFor="quantity"
                     className=" mr-2 text-sm font-medium text-white"
@@ -173,7 +195,7 @@ export default function AddBookPage() {
                     placeholder="1"
                     className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
                   />
-                </div>
+                </div> */}
                 <button
                   type="submit"
                   className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
