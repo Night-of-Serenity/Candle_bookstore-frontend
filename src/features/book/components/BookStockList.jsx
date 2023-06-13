@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+/* eslint-disable react/prop-types */
+// import { useSelector } from "react-redux";
 import BookListItem from "./BookListItem";
 
-export default function BookStockList() {
-  const booksList = useSelector((state) => state.book.booksList);
+export default function BookStockList({ booksList }) {
+  // const booksList = useSelector((state) => state.book.booksList);
 
   return (
     <div className="overflow-x-auto h-screen">

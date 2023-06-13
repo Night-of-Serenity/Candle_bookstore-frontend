@@ -5,7 +5,7 @@ import StarRating from "../features/book/components/StarRating";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-export default function UserBookDetailsPage() {
+export default function AdminBookDetailsPage() {
   // const isAuthen = useSelector((state) => state.auth.isAuthenticated);
 
   // bookid param from url
@@ -21,7 +21,7 @@ export default function UserBookDetailsPage() {
   const [quantityInput, setQuantityInput] = useState(1);
 
   return (
-    <form className="bg-mainlightblue my-20 w-full pr-20">
+    <div className="bg-mainlightblue my-20 w-full pr-20">
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
           <div className="flex flex-col justify-center items-center w-full self-auto h-full">
@@ -91,7 +91,7 @@ export default function UserBookDetailsPage() {
                     type="number"
                     id="quantity"
                     min={1}
-                    defaultValue={1}
+                    // defaultValue={1}
                     placeholder="1"
                     className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
                     value={quantityInput}
@@ -109,6 +109,6 @@ export default function UserBookDetailsPage() {
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 }
