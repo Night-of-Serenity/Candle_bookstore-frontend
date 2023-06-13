@@ -10,7 +10,24 @@ export default function AdminBookDetailsPage() {
   // bookid param from url
   const { bookid } = useParams();
   console.log(bookid);
-  const [bookDetail, setBookDetail] = useState(null);
+
+  const initialBookDetail = {
+    title: "",
+    author: "",
+    pages: "",
+    publishedYear: "",
+    quantity: "",
+    saleQuantity: "",
+    price: "",
+    discount: "",
+    description: "",
+    reviewCount: "",
+    rating: "",
+    bookCover: "",
+    BookToGenres: [],
+  };
+
+  const [bookDetail, setBookDetail] = useState(initialBookDetail);
 
   const fetchBook = async (bookId) => {
     try {
