@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import StarRating from "../features/book/components/StarRating";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as BookApi from "../api/book-api";
 import { useForm } from "react-hook-form";
 import AddBookInput from "../features/book/components/AddBookInput";
@@ -35,6 +35,8 @@ export default function AdminBookDetailsPage() {
 
   const [bookDetail, setBookDetail] = useState(initialBookDetail);
   const genres = useSelector((state) => state.book.genresList);
+  const navigate = useNavigate();
+  const [editMode, setEditMode] = useState(false);
 
   const {
     register,
@@ -69,13 +71,27 @@ export default function AdminBookDetailsPage() {
     }
   };
 
+  const deleteBook = async () => {
+    try {
+      console.log("delete book id:", bookid);
+      const res = await BookApi.deleteBookById(bookid);
+      if (res.data) {
+        await fetchBook(bookid);
+        toast.success(res.data.message);
+        navigate("/");
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   const onSubmitEdit = async (data) => {
     try {
       console.log(data);
       const res = await BookApi.editBook(data, bookid);
       console.log(res.data);
       if (res.data) {
-        await fetchBook(res.data.id);
+        await fetchBook(bookid);
         toast.success("edit book succeed");
         // navigate(`/books/bookdetail/${res.data.id}`);
       }
@@ -112,195 +128,240 @@ export default function AdminBookDetailsPage() {
           <div className="text-white col-span-2">
             <div className="max-w-[35ch] space-y-2">
               <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
-                <AddBookInput
-                  idName="bookTitle"
-                  type="text"
-                  placeholder={"Book Title"}
-                  formSubmit={register("title", { required: true })}
-                />
-                {bookDetail?.title}
+                {editMode ? (
+                  <AddBookInput
+                    idName="bookTitle"
+                    type="text"
+                    placeholder={"Book Title"}
+                    formSubmit={register("title", { required: true })}
+                  />
+                ) : (
+                  bookDetail?.title
+                )}
               </h1>
-              <AddBookInput
-                idName="author"
-                type="text"
-                placeholder={"Author's name"}
-                inputName={"author"}
-                formSubmit={register("author", { required: true })}
-              />
-              <p>By {bookDetail?.author}</p>
+              {editMode ? (
+                <AddBookInput
+                  idName="author"
+                  type="text"
+                  placeholder={"Author's name"}
+                  inputName={"author"}
+                  formSubmit={register("author", { required: true })}
+                />
+              ) : (
+                <p>By {bookDetail?.author}</p>
+              )}
             </div>
             <div className="mt-8 flex">
               <StarRating rating={bookDetail?.rating} className="fill-yellow" />
             </div>
             <section className="mt-8">
-              <fieldset>
-                <legend className="mb-1 text-sm font-medium">Genre</legend>
-                <div className="flex flex-wrap gap-1">
-                  {bookDetail &&
-                    bookDetail.BookToGenres.map((genre) => (
-                      <span
-                        key={genre.Genre.id}
-                        className="btn btn-outline btn-primary btn-sm"
-                      >
-                        {genre.Genre.genre}
-                      </span>
+              {editMode ? (
+                <fieldset>
+                  <legend className="mb-1 text-sm font-medium">Genre</legend>
+                  <div className="flex flex-wrap gap-1">
+                    {bookDetail &&
+                      bookDetail.BookToGenres.map((genre) => (
+                        <span
+                          key={genre.Genre.id}
+                          className="btn btn-outline btn-primary btn-sm"
+                        >
+                          {genre.Genre.genre}
+                        </span>
+                      ))}
+                  </div>
+                </fieldset>
+              ) : (
+                <fieldset>
+                  <legend className="mb-1 text-sm font-medium">Genre</legend>
+                  <div className="flex flex-wrap gap-1">
+                    {genres.map((genre) => (
+                      <GenreCheckbox
+                        key={genre.id}
+                        genre={genre.genre}
+                        id={genre.id}
+                        onSubmit={register}
+                      />
                     ))}
+                  </div>
+                </fieldset>
+              )}
+              {editMode ? (
+                <div className="mt-4">
+                  <label
+                    htmlFor="pages"
+                    className="mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Pages</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="pages"
+                    min={1}
+                    defaultValue={1}
+                    placeholder="1"
+                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    {...register("pages", { required: true })}
+                  />
                 </div>
-              </fieldset>
-              <fieldset>
-                <legend className="mb-1 text-sm font-medium">Genre</legend>
-                <div className="flex flex-wrap gap-1">
-                  {genres.map((genre) => (
-                    <GenreCheckbox
-                      key={genre.id}
-                      genre={genre.genre}
-                      id={genre.id}
-                      onSubmit={register}
-                    />
-                  ))}
+              ) : (
+                <div className="mt-4">Pages: {bookDetail?.pages}</div>
+              )}
+
+              {editMode ? (
+                <div className="mt-4">
+                  Published Year: {bookDetail?.published_year}
                 </div>
-              </fieldset>
+              ) : (
+                <div className="mt-4">
+                  <label
+                    htmlFor="publishedYear"
+                    className="mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Published year</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="publishedYear"
+                    min={1900}
+                    defaultValue={2023}
+                    placeholder="2023"
+                    className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    {...register("publishedYear", { required: true })}
+                  />
+                </div>
+              )}
 
-              <div className="mt-4">Pages: {bookDetail?.pages}</div>
-              <div className="mt-4">
-                <label
-                  htmlFor="pages"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Pages</span>
-                </label>
-                <input
-                  type="number"
-                  id="pages"
-                  min={1}
-                  defaultValue={1}
-                  placeholder="1"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  {...register("pages", { required: true })}
-                />
-              </div>
+              {editMode ? (
+                <div className="mt-4">Price: {bookDetail?.price}$</div>
+              ) : (
+                <div className="mt-4">
+                  <label
+                    htmlFor="price"
+                    className="mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Price</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="price"
+                    min={0}
+                    defaultValue={10.0}
+                    placeholder="10.00"
+                    step=".01"
+                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    {...register("price", { required: true })}
+                  />
+                </div>
+              )}
 
-              <div className="mt-4">
-                Published Year: {bookDetail?.published_year}
-              </div>
-              <div className="mt-4">
-                <label
-                  htmlFor="publishedYear"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Published year</span>
-                </label>
-                <input
-                  type="number"
-                  id="publishedYear"
-                  min={1900}
-                  defaultValue={2023}
-                  placeholder="2023"
-                  className="w-14 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  {...register("publishedYear", { required: true })}
-                />
-              </div>
+              {editMode ? (
+                <div className="mt-4">
+                  Discount:
+                  {(bookDetail?.discount * bookDetail?.price).toFixed(2)}$ (
+                  {(bookDetail?.discount * 100).toFixed()}%)
+                </div>
+              ) : (
+                <div className="mt-4">
+                  <label
+                    htmlFor="discount"
+                    className="mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Discount</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="discount"
+                    min={0}
+                    defaultValue={0.0}
+                    placeholder="0.00"
+                    step=".01"
+                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    {...register("discount")}
+                  />
+                </div>
+              )}
 
-              <div className="mt-4">Price: {bookDetail?.price}$</div>
-              <div className="mt-4">
-                <label
-                  htmlFor="price"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Price</span>
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  min={0}
-                  defaultValue={10.0}
-                  placeholder="10.00"
-                  step=".01"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  {...register("price", { required: true })}
-                />
-              </div>
+              {editMode ? (
+                <div className="mt-4">Stock: {bookDetail?.quantity}</div>
+              ) : (
+                <div className="mt-4">
+                  <label
+                    htmlFor="quantity"
+                    className=" mr-2 text-sm font-medium text-white"
+                  >
+                    <span>Stock</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="quantity"
+                    min={1}
+                    defaultValue={1}
+                    placeholder="1"
+                    className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
+                    {...register("quantity")}
+                  />
+                </div>
+              )}
 
-              <div className="mt-4">
-                Discount:
-                {(bookDetail?.discount * bookDetail?.price).toFixed(2)}$ (
-                {(bookDetail?.discount * 100).toFixed()}%)
-              </div>
-
-              <div className="mt-4">
-                <label
-                  htmlFor="discount"
-                  className="mr-2 text-sm font-medium text-white"
-                >
-                  <span>Discount</span>
-                </label>
-                <input
-                  type="number"
-                  id="discount"
-                  min={0}
-                  defaultValue={0.0}
-                  placeholder="0.00"
-                  step=".01"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  {...register("discount")}
-                />
-              </div>
-
-              <div className="mt-4">Stock: {bookDetail?.quantity}</div>
-              <div className="mt-4">
-                <label
-                  htmlFor="quantity"
-                  className=" mr-2 text-sm font-medium text-white"
-                >
-                  <span>Stock</span>
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  min={1}
-                  defaultValue={1}
-                  placeholder="1"
-                  className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
-                  {...register("quantity")}
-                />
-              </div>
-
-              <div className="mt-4">
-                <div className="flex justify-start">
-                  <div>
-                    Sale Quantity: {bookDetail?.sale_quantity || 0} pcs.{" "}
+              {editMode ? (
+                <div className="mt-4">
+                  <div className="prose max-w-none">
+                    <legend className="mb-1 text-sm font-medium text-white">
+                      description
+                    </legend>
+                    <textarea
+                      {...register("description")}
+                      className=" text-sm textarea-lg min-w-[600px] h-[150px] text-black bg-white"
+                      placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ex odit officia repudiandae? Excepturi eaque ipsum temporibus. Sed ullam optio consequatur officiis numquam neque culpa maiores placeat nobis mollitia voluptates aliquam, deserunt qui similique voluptas tempora. Eaque nemo illum odio recusandae necessitatibus, quas, iure repudiandae iusto provident et, harum possimus reiciendis soluta nobis perspiciatis deleniti. Repellendus totam temporibus harum quis."
+                    ></textarea>
                   </div>
                 </div>
-              </div>
-              <div className="mt-4">description</div>
-              <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
-                {bookDetail?.description}
-              </p>
-              <div className="mt-4">
-                <div className="prose max-w-none">
-                  <legend className="mb-1 text-sm font-medium text-white">
-                    description
-                  </legend>
-                  <textarea
-                    {...register("description")}
-                    className=" text-sm textarea-lg min-w-[600px] h-[150px] text-black bg-white"
-                    placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ex odit officia repudiandae? Excepturi eaque ipsum temporibus. Sed ullam optio consequatur officiis numquam neque culpa maiores placeat nobis mollitia voluptates aliquam, deserunt qui similique voluptas tempora. Eaque nemo illum odio recusandae necessitatibus, quas, iure repudiandae iusto provident et, harum possimus reiciendis soluta nobis perspiciatis deleniti. Repellendus totam temporibus harum quis."
-                  ></textarea>
+              ) : (
+                <>
+                  <div className="mt-4">
+                    <div className="flex justify-start">
+                      <div>
+                        Sale Quantity: {bookDetail?.sale_quantity || 0} pcs.{" "}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4">description</div>
+                  <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
+                    {bookDetail?.description}
+                  </p>
+                </>
+              )}
+
+              {editMode ? (
+                <div className="mt-8 flex gap-4">
+                  <button
+                    type="submit"
+                    className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setEditMode(false)}
+                    type="button"
+                    className="block rounded bg-red-600 px-5 py-3 text-xs font-medium text-black hover:bg-red-400 hover:text-white"
+                  >
+                    Cancel
+                  </button>
                 </div>
-              </div>
-              <div className="flex w-[150px] justify-between my-5">
-                <span className="btn btn-warning btn-sm">edit</span>
-                <span className="btn btn-error btn-sm">delete</span>
-              </div>
+              ) : (
+                <div className="flex w-[150px] justify-between my-5">
+                  <span
+                    onClick={() => setEditMode(true)}
+                    className="btn btn-warning btn-sm"
+                  >
+                    edit
+                  </span>
+                  <span onClick={deleteBook} className="btn btn-error btn-sm">
+                    delete
+                  </span>
+                </div>
+              )}
             </section>
-            <div className="mt-8 flex gap-4">
-              <button
-                type="submit"
-                className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
-              >
-                Save
-              </button>
-            </div>
           </div>
         </div>
       </div>

@@ -8,3 +8,6 @@ export const getBookById = (bookId) => axios.get(`/book/getbook/${bookId}`);
 
 export const editBook = (input, bookId) =>
   axios.post(`/book/editbook/${bookId}`, input);
+
+export const deleteBookById = (bookId) =>
+  axios.delete(`/book/deletebook/${bookId}`);
