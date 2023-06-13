@@ -39,7 +39,7 @@ export default function AddBookPage() {
       // for (let pair of formData.entries()) {
       //   console.log(pair[0] + ", " + pair[1]);
       // }
-      const res = await BookApi.addbook(data);
+      const res = await BookApi.addBook(data);
       console.log(res.data);
       if (res.data) {
         toast.success("add book successful");

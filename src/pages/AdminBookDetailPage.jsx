@@ -75,7 +75,8 @@ export default function AdminBookDetailsPage() {
       const res = await BookApi.editBook(data, bookid);
       console.log(res.data);
       if (res.data) {
-        toast.success("edit book successful");
+        await fetchBook(res.data.id);
+        toast.success("edit book succeed");
         // navigate(`/books/bookdetail/${res.data.id}`);
       }
     } catch (err) {
