@@ -26,7 +26,7 @@ export default function AddBookPage() {
   } = useForm();
 
   const navigate = useNavigate();
-  const onSubmit = async (data) => {
+  const onAddBookSubmit = async (data) => {
     try {
       console.log(data);
 
@@ -60,7 +60,7 @@ export default function AddBookPage() {
   // console.log(watch("title"));
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onAddBookSubmit)}
       className="bg-mainlightblue my-20 w-full pr-20"
     >
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
