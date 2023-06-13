@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as BookApi from "../api/book-api";
+import { useNavigate } from "react-router-dom";
 
 export default function AddBookPage() {
   // const [cover, setCover] = useState(null);
@@ -24,6 +25,7 @@ export default function AddBookPage() {
     // formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -39,7 +41,10 @@ export default function AddBookPage() {
       // }
       const res = await BookApi.addbook(data);
       console.log(res.data);
-      toast.success("add book successful");
+      if (res.data) {
+        toast.success("add book successful");
+        navigate(`/books/bookdetail/${res.data.id}`);
+      }
     } catch (err) {
       toast.error(err.message);
     }

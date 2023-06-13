@@ -11,7 +11,7 @@ export default function BookStock() {
   const fetchStoct = async () => {
     try {
       const res = await BookApi.getAllBooks();
-      console.log(res);
+      // console.log(res);
       if (res.status !== 200) throw res;
       setStock(res.data);
     } catch (err) {
