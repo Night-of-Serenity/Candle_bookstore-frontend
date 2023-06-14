@@ -66,6 +66,7 @@ export default function AdminBookDetailsPage() {
       console.log(res.data);
       if (res.status !== 200) throw res;
       setBookDetail(res.data);
+      setEditMode(false);
     } catch (err) {
       toast.error(err.message);
     }
@@ -159,6 +160,20 @@ export default function AdminBookDetailsPage() {
                 <fieldset>
                   <legend className="mb-1 text-sm font-medium">Genre</legend>
                   <div className="flex flex-wrap gap-1">
+                    {genres.map((genre) => (
+                      <GenreCheckbox
+                        key={genre.id}
+                        genre={genre.genre}
+                        id={genre.id}
+                        onSubmit={register}
+                      />
+                    ))}
+                  </div>
+                </fieldset>
+              ) : (
+                <fieldset>
+                  <legend className="mb-1 text-sm font-medium">Genre</legend>
+                  <div className="flex flex-wrap gap-1">
                     {bookDetail &&
                       bookDetail.BookToGenres.map((genre) => (
                         <span
@@ -168,20 +183,6 @@ export default function AdminBookDetailsPage() {
                           {genre.Genre.genre}
                         </span>
                       ))}
-                  </div>
-                </fieldset>
-              ) : (
-                <fieldset>
-                  <legend className="mb-1 text-sm font-medium">Genre</legend>
-                  <div className="flex flex-wrap gap-1">
-                    {genres.map((genre) => (
-                      <GenreCheckbox
-                        key={genre.id}
-                        genre={genre.genre}
-                        id={genre.id}
-                        onSubmit={register}
-                      />
-                    ))}
                   </div>
                 </fieldset>
               )}
