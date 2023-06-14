@@ -9,8 +9,7 @@ function App() {
 
   const fetchGenres = async () => {
     try {
-      const genres = await dispatch(fetchGenresAsync()).unwrap();
-      console.log("GenresList", genres);
+      await dispatch(fetchGenresAsync());
     } catch (err) {
       console.log(err.message);
     }

@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import Bookcard from "./Bookcard";
-import { useRef } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../../components/Modal";
+import { useRef } from "react";
 
 export default function BookGrid() {
   const booksList = useSelector((state) => state.book.booksList);
+
+  // for trigger hidded modal
   const modalBtnRef = useRef();
   return (
     <>

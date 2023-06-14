@@ -17,10 +17,10 @@ export default function Homepage() {
   const fetchBestseller = async () => {
     try {
       const res = await BookApi.getBestseller();
-      console.log(res.data);
+      // console.log(res.data);
       if (res.status !== 200) throw res;
       setBestSellerList(res.data);
-      console.log("fetch best seller success");
+      // console.log("fetch best seller success");
     } catch (err) {
       toast.error(err.message);
     }
@@ -29,10 +29,10 @@ export default function Homepage() {
   const fetchPromotions = async () => {
     try {
       const res = await BookApi.getDiscountBooks();
-      console.log(res.data);
+      // console.log(res.data);
       if (res.status !== 200) throw res;
       setPromotionsList(res.data);
-      console.log("fetch promotions success");
+      // console.log("fetch promotions success");
     } catch (err) {
       toast.error(err.message);
     }

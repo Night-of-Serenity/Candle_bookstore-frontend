@@ -17,3 +17,6 @@ export const getBestseller = () => axios.get("/book/bestseller");
 export const getDiscountBooks = () => axios.get("/book/discountbooks");
 
 export const getGenres = () => axios.get("/book/genres");
+
+export const fetchBooksByGenre = (genreId) =>
+  axios.get(`/book/genres/${genreId}`);
