@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import defaultCover from "../../assets/default/book_cover_blank.png";
 import { AddIcon, BinIcon, MinusIcon } from "../../icons";
+import {
+  removeItemByIdAsync,
+  addItemToCartByIdAsync,
+} from "../../store/slices/cartSlice";
 
 export default function CartListItem({
+  bookId,
   bookCover,
   title,
   author,
@@ -11,10 +16,16 @@ export default function CartListItem({
   price,
   discount,
 }) {
-  const [input, setInput] = useState("");
-  const handleOnchange = (e) => {
-    setInput(e.target.valule);
+  console.log("quantity", quantity);
+  const dispatch = useDispatch();
+  const handleClickAdd = () => {
+    dispatch(addItemToCartByIdAsync({ bookId: bookId, quantity: 1 }));
   };
+
+  const handleClickReduce = () => {
+    dispatch(removeItemByIdAsync({ bookId: bookId, quantity: 1 }));
+  };
+
   return (
     <li className="flex items-center gap-4">
       <img
@@ -29,16 +40,18 @@ export default function CartListItem({
             <dt className="inline">Author:</dt>
             <dd className="inline"> {author || "John Doe"}</dd>
           </div>
+          <div className="font-semibold text-slate-400">
+            {(price * (1 - (discount || 0))).toFixed(2)}$/pcs
+          </div>
         </dl>
       </div>
+
       <div className="flex flex-1 items-center justify-end gap-2">
-        <div className="font-semibold text-slate-400">
-          {(price * (1 - (discount || 0))).toFixed(2)}$/pcs
-        </div>
+        <div className="text-slate-500">{quantity}pcs</div>
         {/* <form> */}
-        <label htmlFor="Line1Qty" className="sr-only">
+        {/* <label htmlFor="Line1Qty" className="sr-only">
           <span>{quantity}</span>
-        </label>
+        </label> */}
         {/* <input
           type="number"
           min={1}
@@ -48,8 +61,12 @@ export default function CartListItem({
           value={input}
           onChange={handleOnchange}
         /> */}
-        <AddIcon />
-        <MinusIcon />
+        <span onClick={handleClickAdd}>
+          <AddIcon />
+        </span>
+        <span onClick={handleClickReduce}>
+          <MinusIcon />
+        </span>
         {/* </form> */}
         <button className="text-gray-600 transition hover:text-red-600">
           <span className="sr-only">Remove item</span>

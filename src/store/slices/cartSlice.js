@@ -47,6 +47,19 @@ export const addItemToCartByIdAsync = createAsyncThunk(
   }
 );
 
+export const removeItemByIdAsync = createAsyncThunk(
+  "cart/removeItemByIdAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await CartApi.fetchCart();
+      console.log("res axios fetch cart", res.data);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 export const fetchCartAsync = createAsyncThunk(
   "cart/fetchCartAsync",
   async (_, thunkApi) => {
@@ -70,6 +83,9 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
       })
       .addCase(fetchCartAsync.fulfilled, (state, action) => {
+        state.cartItems = action.payload;
+      })
+      .addCase(removeItemByIdAsync.fulfilled, (state, action) => {
         state.cartItems = action.payload;
       }),
 });
