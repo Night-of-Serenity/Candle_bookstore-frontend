@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import defaultCover from "../../assets/default/book_cover_blank.png";
-import { BinIcon } from "../../icons";
+import { AddIcon, BinIcon, MinusIcon } from "../../icons";
 
 export default function CartListItem({
   bookCover,
@@ -9,9 +10,11 @@ export default function CartListItem({
   quantity,
   price,
   discount,
-  onChangeQty,
 }) {
-  console.log("price", price, "discount", discount, "quantity", quantity);
+  const [input, setInput] = useState("");
+  const handleOnchange = (e) => {
+    setInput(e.target.valule);
+  };
   return (
     <li className="flex items-center gap-4">
       <img
@@ -36,15 +39,17 @@ export default function CartListItem({
         <label htmlFor="Line1Qty" className="sr-only">
           <span>{quantity}</span>
         </label>
-        <input
+        {/* <input
           type="number"
           min={1}
-          defaultValue={1}
+          defaultValue={quantity}
           id="Line1Qty"
           className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-          value={quantity}
-          onChange={onChangeQty}
-        />
+          value={input}
+          onChange={handleOnchange}
+        /> */}
+        <AddIcon />
+        <MinusIcon />
         {/* </form> */}
         <button className="text-gray-600 transition hover:text-red-600">
           <span className="sr-only">Remove item</span>

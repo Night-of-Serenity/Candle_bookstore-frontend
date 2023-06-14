@@ -1,13 +1,10 @@
 import { useSelector } from "react-redux";
 import CartListItem from "../features/cart/cartListItem";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 export default function CartPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
-  console.log(cartItems);
-  // const { register, handleSubmit, reset } = useForm();
+
   return (
     <>
       <section className="w-full">
@@ -24,13 +21,13 @@ export default function CartPage() {
                   cartItems?.map((item) => (
                     <CartListItem
                       key={item?.id}
+                      bookId={item?.id}
                       title={item?.title}
                       quantity={item?.CartItems[0].quantity}
                       author={item?.author}
                       bookCover={item?.bookCover}
                       price={item?.price}
                       discount={item?.discount}
-                      onChangeQty={() => {}}
                     />
                   ))}
               </ul>
