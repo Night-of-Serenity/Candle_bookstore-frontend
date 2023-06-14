@@ -4,9 +4,12 @@ import defaultCover from "../assets/default/book_cover_blank.png";
 import StarRating from "../features/book/components/StarRating";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Modal from "../components/Modal";
+import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 export default function UserBookDetailsPage() {
-  // const isAuthen = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthen = useSelector((state) => state.auth.isAuthenticated);
 
   // bookid param from url
   const { bookid } = useParams();
@@ -19,6 +22,14 @@ export default function UserBookDetailsPage() {
   const bookDetail = booksList.find((book) => +book.id === +bookid);
 
   const [quantityInput, setQuantityInput] = useState(1);
+  const modalBtnRef = useRef();
+  const handleOnClickAddCart = (e) => {
+    e.preventDefault();
+    if (!isAuthen) {
+      modalBtnRef.current.click();
+      return;
+    }
+  };
 
   return (
     <div className="bg-mainlightblue my-20 w-full pr-20">
@@ -99,6 +110,7 @@ export default function UserBookDetailsPage() {
                   />
                 </div>
                 <button
+                  onClick={handleOnClickAddCart}
                   type="submit"
                   className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
                 >
@@ -106,6 +118,19 @@ export default function UserBookDetailsPage() {
                 </button>
               </form>
             </section>
+            <div className="invisible">
+              <Modal modalBtnRef={modalBtnRef}>
+                <div className="w-30 h-20 flex justify-center items-center text-xl">
+                  <p className="py-4">
+                    Please{" "}
+                    <Link to="/login" className="font-bold">
+                      Login
+                    </Link>{" "}
+                    before add cart{" "}
+                  </p>
+                </div>
+              </Modal>
+            </div>
           </div>
         </div>
       </div>

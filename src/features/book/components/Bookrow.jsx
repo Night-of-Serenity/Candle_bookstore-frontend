@@ -7,7 +7,7 @@ export default function Bookrow({ title, children }) {
         <div className="text-slate-500">see more</div>
       </div>
       <div>
-        <div className="flex justify-evenly gap-3">{children}</div>;
+        <div className="flex justify-evenly gap-3">{children}</div>
       </div>
     </div>
   );

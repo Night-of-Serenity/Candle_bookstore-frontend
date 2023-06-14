@@ -2,13 +2,29 @@
 import { Link } from "react-router-dom";
 import defaultBookCover from "../../../assets/default/book_cover_blank.png";
 import StarRating from "./StarRating";
+import { useSelector } from "react-redux";
 
 export default function Bookcard({
   id,
-  title = "Harry Potter",
+  title = "",
   rating = 0,
   price = 0,
+  modalBtnRef,
 }) {
+  const { isAuthenticated: isAuth } = useSelector((state) => state.auth);
+
+  const handleOnClickCart = (e) => {
+    console.log(isAuth);
+    e.preventDefault();
+    console.log("click card");
+
+    // show modal when not login
+    if (!isAuth) {
+      modalBtnRef?.current.click();
+      return;
+    }
+  };
+
   return (
     <div className="flex items-center flex-1 justify-center rounded-md w-full">
       <div className="card bg-slate-400 shadow-xl h-full py-2">
@@ -26,7 +42,9 @@ export default function Bookcard({
           <StarRating rating={rating} />
           <span className="text-slate-700 font-semibold">{price}$</span>
           <div className="card-actions flex items-center justify-center mb-3">
-            <button className="btn btn-primary">Add to cart</button>
+            <button onClick={handleOnClickCart} className="btn btn-primary">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

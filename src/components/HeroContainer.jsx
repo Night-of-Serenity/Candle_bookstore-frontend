@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "../assets/carourel/Landscrap/carousel10.jpg";
 export default function HeroContainer() {
   return (
@@ -19,7 +20,9 @@ export default function HeroContainer() {
             and embark on a journey of enlightenment. Discover the magic of
             knowledge at Candle Bookshop!
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <Link to="filter/bestseller">
+            <button className="btn btn-primary">Get Started</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -4,9 +4,16 @@ import Bookcard from "../features/book/components/Bookcard";
 import Bookrow from "../features/book/components/Bookrow";
 import Sidebar from "../layouts/Sidebar";
 import { useSelector } from "react-redux";
+import Modal from "../components/Modal";
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
 export default function Homepage() {
+  const [bestSellerList, setBestSellerList] = useState([]);
+  const [promotionsList, setPromotionsList] = useState([]);
   const booksList = useSelector((state) => state.book.booksList);
+  const modalBtnRef = useRef();
+
   return (
     <>
       <Sidebar />
@@ -28,6 +35,7 @@ export default function Homepage() {
                 title={book.title}
                 rating={book.rating}
                 price={book.price}
+                modalBtnRef={modalBtnRef}
               />
             ))}
           </Bookrow>
@@ -39,9 +47,23 @@ export default function Homepage() {
                 title={book.title}
                 rating={book.rating}
                 price={book.price}
+                modalBtnRef={modalBtnRef}
               />
             ))}
           </Bookrow>
+          <div className="invisible">
+            <Modal modalBtnRef={modalBtnRef}>
+              <div className="w-30 h-20 flex justify-center items-center text-xl">
+                <p className="py-4">
+                  Please{" "}
+                  <Link to="/login" className="font-bold">
+                    Login
+                  </Link>{" "}
+                  before add cart{" "}
+                </p>
+              </div>
+            </Modal>
+          </div>
         </main>
       </div>
     </>
