@@ -7,12 +7,26 @@ import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import * as BookApi from "../api/book-api";
 
 export default function Homepage() {
   const [bestSellerList, setBestSellerList] = useState([]);
   const [promotionsList, setPromotionsList] = useState([]);
   const booksList = useSelector((state) => state.book.booksList);
   const modalBtnRef = useRef();
+
+  // const fetchBestseller = async () => {
+  //   try {
+  //     const res = await BookApi.getBestseller();
+  //     // console.log(res);
+  //     if (res.status !== 200) throw res;
+  //     setStock(res.data);
+  //   } catch (err) {
+  //     toast.error(err.message);
+  //   }
+  // };
+
+  useEffect(() => {}, []);
 
   return (
     <>
