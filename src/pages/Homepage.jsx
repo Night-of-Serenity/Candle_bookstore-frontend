@@ -3,30 +3,45 @@ import HeroContainer from "../components/HeroContainer";
 import Bookcard from "../features/book/components/Bookcard";
 import Bookrow from "../features/book/components/Bookrow";
 import Sidebar from "../layouts/Sidebar";
-import { useSelector } from "react-redux";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import * as BookApi from "../api/book-api";
+import { toast } from "react-toastify";
 
 export default function Homepage() {
   const [bestSellerList, setBestSellerList] = useState([]);
   const [promotionsList, setPromotionsList] = useState([]);
-  const booksList = useSelector((state) => state.book.booksList);
   const modalBtnRef = useRef();
 
-  // const fetchBestseller = async () => {
-  //   try {
-  //     const res = await BookApi.getBestseller();
-  //     // console.log(res);
-  //     if (res.status !== 200) throw res;
-  //     setStock(res.data);
-  //   } catch (err) {
-  //     toast.error(err.message);
-  //   }
-  // };
+  const fetchBestseller = async () => {
+    try {
+      const res = await BookApi.getBestseller();
+      console.log(res.data);
+      if (res.status !== 200) throw res;
+      setBestSellerList(res.data);
+      console.log("fetch best seller success");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
-  useEffect(() => {}, []);
+  const fetchPromotions = async () => {
+    try {
+      const res = await BookApi.getDiscountBooks();
+      console.log(res.data);
+      if (res.status !== 200) throw res;
+      setPromotionsList(res.data);
+      console.log("fetch promotions success");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchBestseller();
+    fetchPromotions();
+  }, []);
 
   return (
     <>
@@ -42,7 +57,7 @@ export default function Homepage() {
             <HeroContainer />
           </div>
           <Bookrow title="Best Seller">
-            {booksList.slice(0, 5).map((book) => (
+            {bestSellerList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
                 id={book.id}
@@ -54,7 +69,7 @@ export default function Homepage() {
             ))}
           </Bookrow>
           <Bookrow title="Promotions">
-            {booksList.slice(5, 10).map((book) => (
+            {promotionsList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
                 id={book.id}

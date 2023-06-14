@@ -12,4 +12,6 @@ export const editBook = (input, bookId) =>
 export const deleteBookById = (bookId) =>
   axios.delete(`/book/deletebook/${bookId}`);
 
-// export const getBestseller = () => axios.get("/bestseller");
+export const getBestseller = () => axios.get("/book/bestseller");
+
+export const getDiscountBooks = () => axios.get("/book/discountbooks");
