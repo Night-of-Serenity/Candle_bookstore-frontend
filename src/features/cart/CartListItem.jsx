@@ -7,8 +7,11 @@ export default function CartListItem({
   title,
   author,
   quantity,
+  price,
+  discount,
   onChangeQty,
 }) {
+  console.log("price", price, "discount", discount, "quantity", quantity);
   return (
     <li className="flex items-center gap-4">
       <img
@@ -26,20 +29,23 @@ export default function CartListItem({
         </dl>
       </div>
       <div className="flex flex-1 items-center justify-end gap-2">
-        <form>
-          <label htmlFor="Line1Qty" className="sr-only">
-            {quantity}
-          </label>
-          <input
-            type="number"
-            min={1}
-            defaultValue={1}
-            id="Line1Qty"
-            className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-            value={quantity}
-            onChange={onChangeQty}
-          />
-        </form>
+        <div className="font-semibold text-slate-400">
+          {(price * (1 - (discount || 0))).toFixed(2)}$/pcs
+        </div>
+        {/* <form> */}
+        <label htmlFor="Line1Qty" className="sr-only">
+          <span>{quantity}</span>
+        </label>
+        <input
+          type="number"
+          min={1}
+          defaultValue={1}
+          id="Line1Qty"
+          className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+          value={quantity}
+          onChange={onChangeQty}
+        />
+        {/* </form> */}
         <button className="text-gray-600 transition hover:text-red-600">
           <span className="sr-only">Remove item</span>
           <BinIcon />

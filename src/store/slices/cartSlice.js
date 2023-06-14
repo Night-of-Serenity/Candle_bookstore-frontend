@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import * as CartApi from "../../api/cart-api";
 
 const initialState = {
   cartItems: [
@@ -31,11 +33,45 @@ const initialState = {
   ],
 };
 
+export const addItemToCartByIdAsync = createAsyncThunk(
+  "cart/addItemToCartByIdAsync",
+  async (input, thunkApi) => {
+    try {
+      console.log("add item obj", input);
+      const res = await CartApi.addItemById(input);
+      console.log("res axios get books by genre id", res.data);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const fetchCartAsync = createAsyncThunk(
+  "cart/fetchCartAsync",
+  async (_, thunkApi) => {
+    try {
+      const res = await CartApi.fetchCart();
+      console.log("res axios fetch cart", res.data);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {},
-  extraReducers: (builder) => builder,
+  extraReducers: (builder) =>
+    builder
+      .addCase(addItemToCartByIdAsync.fulfilled, (state, action) => {
+        state.cartItems = action.payload;
+      })
+      .addCase(fetchCartAsync.fulfilled, (state, action) => {
+        state.cartItems = action.payload;
+      }),
 });
 
 export default cartSlice.reducer;

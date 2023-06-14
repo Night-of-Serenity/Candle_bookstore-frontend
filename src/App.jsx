@@ -3,6 +3,7 @@ import Router from "./routes/Router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchGenresAsync } from "./store/slices/bookslice";
+import { fetchCartAsync } from "./store/slices/cartSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function App() {
     }
   };
   fetchGenres();
-
+  dispatch(fetchCartAsync());
   return (
     <div>
       <Router />

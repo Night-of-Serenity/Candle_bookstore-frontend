@@ -2,7 +2,8 @@
 import { Link } from "react-router-dom";
 import defaultBookCover from "../../../assets/default/book_cover_blank.png";
 import StarRating from "./StarRating";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCartByIdAsync } from "../../../store/slices/cartSlice";
 
 export default function Bookcard({
   id,
@@ -12,17 +13,20 @@ export default function Bookcard({
   modalBtnRef,
 }) {
   const { isAuthenticated: isAuth } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleOnClickCart = (e) => {
     console.log(isAuth);
     e.preventDefault();
-    console.log("click card");
+    console.log("click card book id", id);
 
     // show modal when not login
     if (!isAuth) {
       modalBtnRef?.current.click();
       return;
     }
+    console.log("add cart");
+    dispatch(addItemToCartByIdAsync({ quantity: 1, bookId: id }));
   };
 
   return (

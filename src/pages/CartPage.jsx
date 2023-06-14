@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import CartListItem from "../features/cart/cartListItem";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 export default function CartPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   console.log(cartItems);
+  console.log(cartItems);
+  // const { register, handleSubmit, reset } = useForm();
   return (
     <>
       <section className="w-full">
@@ -17,16 +20,19 @@ export default function CartPage() {
             </header>
             <div className="mt-8">
               <ul className="space-y-4">
-                {cartItems.map((item) => (
-                  <CartListItem
-                    key={item.id}
-                    title={item.title}
-                    quantity={item.quantity}
-                    author={item.author}
-                    bookCover={item.book_cover}
-                    onChangeQty={() => {}}
-                  />
-                ))}
+                {cartItems?.length &&
+                  cartItems?.map((item) => (
+                    <CartListItem
+                      key={item?.id}
+                      title={item?.title}
+                      quantity={item?.CartItems[0].quantity}
+                      author={item?.author}
+                      bookCover={item?.bookCover}
+                      price={item?.price}
+                      discount={item?.discount}
+                      onChangeQty={() => {}}
+                    />
+                  ))}
               </ul>
               <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
                 <div className="w-screen max-w-lg space-y-4">
@@ -34,11 +40,14 @@ export default function CartPage() {
                     <div className="flex justify-between">
                       <dt>Subtotal</dt>
                       <dd>
-                        {cartItems
-                          .reduce((sum, item) => {
-                            return sum + item.price * item.quantity;
-                          }, 0)
-                          .toFixed(2)}
+                        {cartItems?.length &&
+                          cartItems
+                            ?.reduce((sum, item) => {
+                              return (
+                                sum + item?.price * item?.CartItems[0].quantity
+                              );
+                            }, 0)
+                            .toFixed(2)}
                         $
                       </dd>
                     </div>
@@ -47,10 +56,12 @@ export default function CartPage() {
                       <dd>
                         -
                         {cartItems
-                          .reduce(
+                          ?.reduce(
                             (sum, item) =>
                               sum +
-                              item.price * item.quantity * (item.discount || 0),
+                              item.price *
+                                item.CartItems[0].quantity *
+                                (item.discount || 0),
                             0
                           )
                           .toFixed(2)}
@@ -61,11 +72,11 @@ export default function CartPage() {
                       <dt>Total</dt>
                       <dd>
                         {cartItems
-                          .reduce((sum, item) => {
+                          ?.reduce((sum, item) => {
                             return (
                               sum +
                               item.price *
-                                item.quantity *
+                                item.CartItems[0].quantity *
                                 (1 - (item.discount || 0))
                             );
                           }, 0)

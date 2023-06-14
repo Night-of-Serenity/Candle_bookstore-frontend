@@ -56,7 +56,7 @@ export default function Homepage() {
           <div className="h-30 mb-[100px]">
             <HeroContainer />
           </div>
-          <Bookrow title="Best Seller">
+          <Bookrow title="Best Seller" nagigatePath="/filter/bestseller">
             {bestSellerList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
@@ -68,7 +68,7 @@ export default function Homepage() {
               />
             ))}
           </Bookrow>
-          <Bookrow title="Promotions">
+          <Bookrow title="Promotions" nagigatePath="/filter/promotions">
             {promotionsList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
