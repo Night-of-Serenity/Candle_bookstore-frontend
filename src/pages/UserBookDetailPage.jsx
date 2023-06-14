@@ -1,12 +1,13 @@
 // import bookCover from "../assets/book_covers/Think_Again-The_Power_of_Knowing_What_You_Don't_Know.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import StarRating from "../features/book/components/StarRating";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
+import * as BookApi from "../api/book-api";
 
 export default function UserBookDetailsPage() {
   const isAuthen = useSelector((state) => state.auth.isAuthenticated);
@@ -16,13 +17,15 @@ export default function UserBookDetailsPage() {
   console.log(bookid);
 
   // book slice booklist bookdata
-  const booksList = useSelector((state) => state.book.booksList);
-  console.log(booksList);
+  // const booksList = useSelector((state) => state.book.booksList);
+  const [bookDetail, setBookDetail] = useState({});
+  console.log(bookDetail);
 
-  const bookDetail = booksList.find((book) => +book.id === +bookid);
+  // const bookDetail = booksList.find((book) => +book.id === +bookid);
 
   const [quantityInput, setQuantityInput] = useState(1);
   const modalBtnRef = useRef();
+
   const handleOnClickAddCart = (e) => {
     e.preventDefault();
     if (!isAuthen) {
@@ -30,6 +33,27 @@ export default function UserBookDetailsPage() {
       return;
     }
   };
+
+  const navigate = useNavigate();
+
+  const fetchBookDetail = async (bookid) => {
+    try {
+      const res = await BookApi.getBookById(bookid);
+      console.log(res.data);
+      if (!res.data) {
+        console.log("book detail not found");
+        navigate("/");
+      }
+      setBookDetail(res.data);
+      console.log("fetch best seller success");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchBookDetail(bookid);
+  }, [bookid]);
 
   return (
     <div className="bg-mainlightblue my-20 w-full pr-20">
@@ -46,49 +70,50 @@ export default function UserBookDetailsPage() {
           <div className="text-white col-span-2">
             <div className="max-w-[35ch] space-y-2">
               <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
-                {bookDetail.title}
+                {bookDetail?.title}
               </h1>
-              <p>By {bookDetail.author}</p>
+              <p>By {bookDetail?.author}</p>
             </div>
             <div className="mt-8 flex">
-              <StarRating rating={bookDetail.rating} className="fill-yellow" />
+              <StarRating rating={bookDetail?.rating} className="fill-yellow" />
             </div>
             <section className="mt-8">
               <fieldset>
                 <legend className="mb-1 text-sm font-medium">Genre</legend>
                 <div className="flex flex-wrap gap-1">
-                  {bookDetail.Genres.map((genre) => (
-                    <span
-                      key={genre.id}
-                      className="btn btn-outline btn-primary btn-sm"
-                    >
-                      {genre.genre}
-                    </span>
-                  ))}
+                  {bookDetail?.BookToGenres &&
+                    bookDetail?.BookToGenres.map((genre) => (
+                      <span
+                        key={genre.Genre.id}
+                        className="btn btn-outline btn-primary btn-sm"
+                      >
+                        {genre.Genre.genre}
+                      </span>
+                    ))}
                 </div>
               </fieldset>
 
-              <div className="mt-4">Pages: {bookDetail.pages}</div>
+              <div className="mt-4">Pages: {bookDetail?.pages}</div>
               <div className="mt-4">
-                Published Year: {bookDetail.published_year}
+                Published Year: {bookDetail?.publishedYear}
               </div>
-              <div className="mt-4">Price: {bookDetail.price}$</div>
+              <div className="mt-4">Price: {bookDetail?.price}$</div>
               <div className="mt-4">
                 Discount:
-                {(bookDetail.discount * bookDetail.price).toFixed(2)}$ (
-                {(bookDetail.discount * 100).toFixed()}%)
+                {(bookDetail?.discount * bookDetail?.price).toFixed(2)}$ (
+                {(bookDetail?.discount * 100).toFixed()}%)
               </div>
-              <div className="mt-4">Stock: {bookDetail?.quantity}</div>
+              <div className="mt-4">Stock: {bookDetail?.quantity} pcs.</div>
               <div className="mt-4">
                 <div className="flex justify-start">
                   <div>
-                    Sale Quantity: {bookDetail?.sale_quantity || 0} pcs.{" "}
+                    Sale Quantity: {bookDetail?.saleQuantity || 0} pcs.{" "}
                   </div>
                 </div>
               </div>
               <div className="mt-4">description</div>
               <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
-                {bookDetail.description}
+                {bookDetail?.description}
               </p>
               <form className="mt-8 flex gap-4">
                 <div>

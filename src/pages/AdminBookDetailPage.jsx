@@ -210,10 +210,6 @@ export default function AdminBookDetailsPage() {
 
               {editMode ? (
                 <div className="mt-4">
-                  Published Year: {bookDetail?.published_year}
-                </div>
-              ) : (
-                <div className="mt-4">
                   <label
                     htmlFor="publishedYear"
                     className="mr-2 text-sm font-medium text-white"
@@ -230,11 +226,13 @@ export default function AdminBookDetailsPage() {
                     {...register("publishedYear", { required: true })}
                   />
                 </div>
+              ) : (
+                <div className="mt-4">
+                  Published Year: {bookDetail?.publishedYear}
+                </div>
               )}
 
               {editMode ? (
-                <div className="mt-4">Price: {bookDetail?.price}$</div>
-              ) : (
                 <div className="mt-4">
                   <label
                     htmlFor="price"
@@ -253,15 +251,11 @@ export default function AdminBookDetailsPage() {
                     {...register("price", { required: true })}
                   />
                 </div>
+              ) : (
+                <div className="mt-4">Price: {bookDetail?.price}$</div>
               )}
 
               {editMode ? (
-                <div className="mt-4">
-                  Discount:
-                  {(bookDetail?.discount * bookDetail?.price).toFixed(2)}$ (
-                  {(bookDetail?.discount * 100).toFixed()}%)
-                </div>
-              ) : (
                 <div className="mt-4">
                   <label
                     htmlFor="discount"
@@ -280,11 +274,15 @@ export default function AdminBookDetailsPage() {
                     {...register("discount")}
                   />
                 </div>
+              ) : (
+                <div className="mt-4">
+                  Discount:
+                  {(bookDetail?.discount * bookDetail?.price).toFixed(2)}$ (
+                  {(bookDetail?.discount * 100).toFixed()}%)
+                </div>
               )}
 
               {editMode ? (
-                <div className="mt-4">Stock: {bookDetail?.quantity}</div>
-              ) : (
                 <div className="mt-4">
                   <label
                     htmlFor="quantity"
@@ -302,6 +300,8 @@ export default function AdminBookDetailsPage() {
                     {...register("quantity")}
                   />
                 </div>
+              ) : (
+                <div className="mt-4">Stock: {bookDetail?.quantity} pcs.</div>
               )}
 
               {editMode ? (
