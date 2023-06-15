@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import defaultCover from "../../assets/default/book_cover_blank.png";
 import { AddIcon, BinIcon, MinusIcon } from "../../icons";
 import {
-  removeItemByIdAsync,
+  reduceItemByIdAsync,
   addItemToCartByIdAsync,
+  deleteItemByIdAsync,
 } from "../../store/slices/cartSlice";
 
 export default function CartListItem({
@@ -16,7 +17,7 @@ export default function CartListItem({
   price,
   discount,
 }) {
-  console.log("quantity", quantity);
+  // console.log("quantity", quantity);
   const dispatch = useDispatch();
   const handleClickAdd = () => {
     dispatch(addItemToCartByIdAsync({ bookId: bookId, quantity: 1 }));
@@ -24,10 +25,14 @@ export default function CartListItem({
   };
 
   const handleClickReduce = () => {
-    dispatch(removeItemByIdAsync({ bookId: bookId, quantity: 1 }));
+    dispatch(reduceItemByIdAsync({ bookId: bookId, quantity: 1 }));
     // toast.success("remove item succeed");
   };
 
+  const handleClickDelete = () => {
+    dispatch(deleteItemByIdAsync(bookId));
+    // toast.success("remove item succeed");
+  };
   return (
     <li className="flex items-center gap-4">
       <img
@@ -63,14 +68,17 @@ export default function CartListItem({
           value={input}
           onChange={handleOnchange}
         /> */}
-        <span onClick={handleClickAdd}>
+        <span className="cursor-pointer" onClick={handleClickAdd}>
           <AddIcon />
         </span>
-        <span onClick={handleClickReduce}>
+        <span className="cursor-pointer" onClick={handleClickReduce}>
           <MinusIcon />
         </span>
         {/* </form> */}
-        <button className="text-gray-600 transition hover:text-red-600">
+        <button
+          onClick={handleClickDelete}
+          className="text-gray-600 transition hover:text-red-600"
+        >
           <span className="sr-only">Remove item</span>
           <BinIcon />
         </button>

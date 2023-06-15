@@ -39,15 +39,12 @@ export default function UserBookDetailsPage() {
   const fetchBookDetail = async (bookid) => {
     try {
       const res = await BookApi.getBookById(bookid);
-      // console.log(res.data);
       if (!res.data) {
-        // console.log("book detail not found");
         navigate("/");
       }
       setBookDetail(res.data);
-      // console.log("fetch best seller success");
     } catch (err) {
-      // console.log(err.message);
+      console.log(err);
     }
   };
 

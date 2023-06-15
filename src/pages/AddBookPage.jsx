@@ -30,15 +30,6 @@ export default function AddBookPage() {
     try {
       console.log(data);
 
-      // const formData = new FormData();
-      // Object.entries(data).forEach(([field, value]) =>
-      //   formData.append(field, value)
-      // );
-
-      // // Check formData Display the key/value pairs
-      // for (let pair of formData.entries()) {
-      //   console.log(pair[0] + ", " + pair[1]);
-      // }
       const res = await BookApi.addBook(data);
       console.log(res.data);
       if (res.data) {
@@ -50,14 +41,6 @@ export default function AddBookPage() {
     }
   };
 
-  // if (Object.keys(errors).length) {
-  //   Object.entries(errors).map(([errField, errObj]) => {
-  //     // console.log(`${errField} is ${errObj.type}`);
-  //     toast.error(`${errField} is ${errObj.type}`);
-  //   });
-  // }
-  // console.log(watch("genres"));
-  // console.log(watch("title"));
   return (
     <form
       onSubmit={handleSubmit(onAddBookSubmit)}

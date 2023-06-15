@@ -17,13 +17,13 @@ export default function CartPage() {
             </header>
             <div className="mt-8">
               <ul className="space-y-4">
-                {cartItems?.length &&
+                {cartItems?.length !== 0 &&
                   cartItems?.map((item) => (
                     <CartListItem
                       key={item?.id}
                       bookId={item?.id}
                       title={item?.title}
-                      quantity={item?.CartItems[0].quantity}
+                      quantity={item?.CartItems[0]?.quantity}
                       author={item?.author}
                       bookCover={item?.bookCover}
                       price={item?.price}
@@ -41,7 +41,7 @@ export default function CartPage() {
                           cartItems
                             ?.reduce((sum, item) => {
                               return (
-                                sum + item?.price * item?.CartItems[0].quantity
+                                sum + item?.price * item?.CartItems[0]?.quantity
                               );
                             }, 0)
                             .toFixed(2)}
@@ -56,9 +56,9 @@ export default function CartPage() {
                           ?.reduce(
                             (sum, item) =>
                               sum +
-                              item.price *
-                                item.CartItems[0].quantity *
-                                (item.discount || 0),
+                              item?.price *
+                                item?.CartItems[0]?.quantity *
+                                (item?.discount || 0),
                             0
                           )
                           .toFixed(2)}
@@ -73,8 +73,8 @@ export default function CartPage() {
                             return (
                               sum +
                               item.price *
-                                item.CartItems[0].quantity *
-                                (1 - (item.discount || 0))
+                                item?.CartItems[0]?.quantity *
+                                (1 - (item?.discount || 0))
                             );
                           }, 0)
                           .toFixed(2)}
