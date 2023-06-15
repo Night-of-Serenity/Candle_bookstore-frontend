@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import StarRating from "../features/book/components/StarRating";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import * as BookApi from "../api/book-api";
+import { addItemToCartByIdAsync } from "../store/slices/cartSlice";
+import { toast } from "react-toastify";
+import { func } from "joi";
 
 export default function UserBookDetailsPage() {
   const isAuthen = useSelector((state) => state.auth.isAuthenticated);
@@ -25,13 +28,22 @@ export default function UserBookDetailsPage() {
 
   const [quantityInput, setQuantityInput] = useState(1);
   const modalBtnRef = useRef();
+  const dispatch = useDispatch();
 
-  const handleOnClickAddCart = (e) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     if (!isAuthen) {
       modalBtnRef.current.click();
       return;
     }
+    console.log(quantityInput);
+    const addItemASync = async () => {
+      await dispatch(
+        addItemToCartByIdAsync({ bookId: bookid, quantity: +quantityInput })
+      );
+    };
+    addItemASync();
+    toast.success("add item into cart");
   };
 
   const navigate = useNavigate();
@@ -112,7 +124,7 @@ export default function UserBookDetailsPage() {
               <p className="bg-slate-500 p-2 rounded-md min-h-[150px]">
                 {bookDetail?.description}
               </p>
-              <form className="mt-8 flex gap-4">
+              <form onSubmit={handleOnSubmit} className="mt-8 flex gap-4">
                 <div>
                   <label
                     htmlFor="quantity"
@@ -124,15 +136,19 @@ export default function UserBookDetailsPage() {
                     type="number"
                     id="quantity"
                     min={1}
+                    step={1}
                     // defaultValue={1}
                     placeholder="1"
                     className="w-12 rounded border-gray-200 py-3 text-center text-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none text-black"
                     value={quantityInput}
-                    onChange={(e) => setQuantityInput(e.target.value)}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setQuantityInput(e.target.value);
+                      console.log(quantityInput);
+                    }}
                   />
                 </div>
                 <button
-                  onClick={handleOnClickAddCart}
                   type="submit"
                   className="block rounded bg-mainyellow px-5 py-3 text-xs font-medium text-black hover:bg-yellow-500 hover:text-white"
                 >
