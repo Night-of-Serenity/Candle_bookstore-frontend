@@ -4,6 +4,7 @@ import defaultBookCover from "../../../assets/default/book_cover_blank.png";
 import StarRating from "./StarRating";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCartByIdAsync } from "../../../store/slices/cartSlice";
+import { toast } from "react-toastify";
 
 export default function Bookcard({
   id,
@@ -15,18 +16,25 @@ export default function Bookcard({
   const { isAuthenticated: isAuth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const handleOnClickCart = (e) => {
-    console.log(isAuth);
-    e.preventDefault();
-    console.log("click card book id", id);
+  const handleOnClickCart = async (e) => {
+    try {
+      console.log(isAuth);
+      e.preventDefault();
+      console.log("click card book id", id);
 
-    // show modal when not login
-    if (!isAuth) {
-      modalBtnRef?.current.click();
-      return;
+      // show modal when not login
+      if (!isAuth) {
+        modalBtnRef?.current.click();
+        return;
+      }
+      console.log("add cart");
+      await dispatch(
+        addItemToCartByIdAsync({ quantity: 1, bookId: id })
+      ).unwrap();
+      toast.success("succeed add cart");
+    } catch (err) {
+      console.log(err.message);
     }
-    console.log("add cart");
-    dispatch(addItemToCartByIdAsync({ quantity: 1, bookId: id }));
   };
 
   return (

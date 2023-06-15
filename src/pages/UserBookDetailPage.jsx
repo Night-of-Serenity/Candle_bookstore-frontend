@@ -14,12 +14,12 @@ export default function UserBookDetailsPage() {
 
   // bookid param from url
   const { bookid } = useParams();
-  console.log(bookid);
+  // console.log(bookid);
 
   // book slice booklist bookdata
   // const booksList = useSelector((state) => state.book.booksList);
   const [bookDetail, setBookDetail] = useState({});
-  console.log(bookDetail);
+  // console.log(bookDetail);
 
   // const bookDetail = booksList.find((book) => +book.id === +bookid);
 
@@ -39,15 +39,15 @@ export default function UserBookDetailsPage() {
   const fetchBookDetail = async (bookid) => {
     try {
       const res = await BookApi.getBookById(bookid);
-      console.log(res.data);
+      // console.log(res.data);
       if (!res.data) {
-        console.log("book detail not found");
+        // console.log("book detail not found");
         navigate("/");
       }
       setBookDetail(res.data);
-      console.log("fetch best seller success");
+      // console.log("fetch best seller success");
     } catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
     }
   };
 

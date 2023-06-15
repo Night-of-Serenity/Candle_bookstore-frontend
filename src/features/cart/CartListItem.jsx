@@ -20,10 +20,12 @@ export default function CartListItem({
   const dispatch = useDispatch();
   const handleClickAdd = () => {
     dispatch(addItemToCartByIdAsync({ bookId: bookId, quantity: 1 }));
+    // toast.success("add item succeed");
   };
 
   const handleClickReduce = () => {
     dispatch(removeItemByIdAsync({ bookId: bookId, quantity: 1 }));
+    // toast.success("remove item succeed");
   };
 
   return (
