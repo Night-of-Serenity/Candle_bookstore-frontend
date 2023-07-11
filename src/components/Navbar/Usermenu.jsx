@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutAsync } from "../../store/slices/authSlice";
+import { clearCart } from "../../store/slices/cartSlice";
 export default function Usermenu() {
   const { username } = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -16,7 +17,14 @@ export default function Usermenu() {
             <Link to="/purschasedHistory">purchase history</Link>
           </li>
           <li>
-            <button onClick={() => dispatch(logoutAsync())}>log out</button>
+            <button
+              onClick={() => {
+                dispatch(clearCart());
+                dispatch(logoutAsync());
+              }}
+            >
+              log out
+            </button>
           </li>
         </ul>
       </details>

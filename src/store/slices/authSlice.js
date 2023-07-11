@@ -7,7 +7,7 @@ const initialState = {
   isAdmin: false,
   error: null,
   user: null,
-  actionSucceed: false,
+  // actionSucceed: false,
 };
 
 export const registerAsync = createAsyncThunk(
