@@ -10,7 +10,6 @@ import { useRef } from "react";
 import * as BookApi from "../api/book-api";
 import { addItemToCartByIdAsync } from "../store/slices/cartSlice";
 import { toast } from "react-toastify";
-import { func } from "joi";
 
 export default function UserBookDetailsPage() {
   const isAuthen = useSelector((state) => state.auth.isAuthenticated);
