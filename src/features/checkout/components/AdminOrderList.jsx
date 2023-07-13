@@ -18,12 +18,20 @@ export default function AdminOrderList() {
   };
 
   const onChangeOrderStatus = async (orderId, orderStatus) => {
-    const orderIndex = ordersList.findIndex((order) => order.id == orderId);
-    if (orderIndex !== -1) {
-      const newOrdersList = [...ordersList];
-      newOrdersList[orderIndex].orderStatus =
-        orderStatus == "pending" ? "confirmed" : "pending";
-      setOrdersList(newOrdersList);
+    try {
+      const res = await OrderApi.toggleOrderStatus(orderId);
+      if (res.data) {
+        const orderIndex = ordersList.findIndex(
+          (order) => order.id == res.data.id
+        );
+        if (orderIndex !== -1) {
+          const newOrdersList = [...ordersList];
+          newOrdersList[orderIndex].orderStatus = res.data.orderStatus;
+          setOrdersList(newOrdersList);
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
