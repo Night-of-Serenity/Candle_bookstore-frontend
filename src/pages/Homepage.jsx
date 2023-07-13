@@ -4,15 +4,22 @@ import Bookcard from "../features/book/components/Bookcard";
 import Bookrow from "../features/book/components/Bookrow";
 import Sidebar from "../layouts/Sidebar";
 import Modal from "../components/Modal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import * as BookApi from "../api/book-api";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  fetchBestsellerAsync,
+  fetchPromotionsAsync,
+} from "../store/slices/bookslice";
 
 export default function Homepage() {
   const [bestSellerList, setBestSellerList] = useState([]);
   const [promotionsList, setPromotionsList] = useState([]);
   const modalBtnRef = useRef();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fetchBestseller = async () => {
     try {
@@ -56,25 +63,38 @@ export default function Homepage() {
           <div className="h-30 mb-[100px]">
             <HeroContainer />
           </div>
-          <Bookrow title="Best Seller" navigatePath="/filter/bestseller">
+          <Bookrow
+            title="Best Seller"
+            onNavigate={() => {
+              dispatch(fetchBestsellerAsync());
+              navigate("/filter/bestseller");
+            }}
+          >
             {bestSellerList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
                 id={book.id}
                 title={book.title}
-                bookCover={book.cover}
+                bookCover={book.bookCover}
                 rating={book.rating}
                 price={book.price}
                 modalBtnRef={modalBtnRef}
               />
             ))}
           </Bookrow>
-          <Bookrow title="Promotions" navigatePath="/filter/promotions">
+          <Bookrow
+            title="Promotions"
+            onNavigate={() => {
+              dispatch(fetchPromotionsAsync());
+              navigate("/filter/promotions");
+            }}
+          >
             {promotionsList.slice(0, 5).map((book) => (
               <Bookcard
                 key={book.id}
                 id={book.id}
                 title={book.title}
+                bookCover={book.bookCover}
                 rating={book.rating}
                 price={book.price}
                 modalBtnRef={modalBtnRef}

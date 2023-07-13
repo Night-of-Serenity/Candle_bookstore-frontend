@@ -13,13 +13,13 @@ export default function OrderItem({ book }) {
     },
   } = book;
   return (
-    <li className="flex items-center  py-4 justify-between">
+    <li className="flex items-center   py-4 justify-between">
       <img
         src={bookCover || defaultCover}
         alt=""
-        className="h-16 w-16 rounded object-cover"
+        className="h-16 w-16 rounded object-cover "
       />
-      <div>
+      <div className="px-3">
         <h3 className="text-sm text-gray-900">{title}</h3>
         <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
           <div>
