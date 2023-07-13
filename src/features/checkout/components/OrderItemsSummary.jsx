@@ -3,7 +3,7 @@ import OrderItem from "./OrderItem";
 
 export default function OrderItemsSummary() {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
+  // console.log(cartItems);
   return (
     <div>
       <div className="flow-root">

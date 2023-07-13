@@ -1,9 +1,7 @@
+import { useSelector } from "react-redux";
+import CartSummary from "../../cart/CartSummary";
+
 export default function PriceSummary() {
-  return (
-    <div>
-      <p className="flex justify-end text-2xl font-medium tracking-tight text-gray-400">
-        Total: 99.99$
-      </p>
-    </div>
-  );
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  return <CartSummary cartItems={cartItems} isCheckout={true} />;
 }

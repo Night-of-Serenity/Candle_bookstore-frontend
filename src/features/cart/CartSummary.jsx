@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
-export default function CartSummary({ cartItems }) {
+export default function CartSummary({ cartItems, isCheckout = false }) {
   return (
     <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
       <div className="w-screen max-w-lg space-y-4">
@@ -9,7 +9,7 @@ export default function CartSummary({ cartItems }) {
           <div className="flex justify-between">
             <dt>Subtotal</dt>
             <dd>
-              {cartItems?.length &&
+              {cartItems?.length > 0 &&
                 cartItems
                   ?.reduce((sum, item) => {
                     return sum + item?.price * item?.CartItems[0]?.quantity;
@@ -53,15 +53,17 @@ export default function CartSummary({ cartItems }) {
           </div>
         </dl>
 
-        <div className="flex justify-end">
-          <Link
-            to="/checkout"
-            href="#"
-            className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-          >
-            Checkout
-          </Link>
-        </div>
+        {!isCheckout && (
+          <div className="flex justify-end">
+            <Link
+              to="/checkout"
+              href="#"
+              className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+            >
+              Checkout
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
