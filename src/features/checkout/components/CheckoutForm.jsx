@@ -1,9 +1,25 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import scbIcon from "../../../assets/scb.png";
 import Modal from "../../../components/Modal";
 
 export default function CheckoutForm() {
+  const initialInput = {
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    address: "",
+    paymentSlip: "",
+  };
+  const [input, setInput] = useState(initialInput);
+
   const modalRef = useRef();
+
+  const handleInputChange = (e) => {
+    console.dir(e.target);
+    if (e.target.name == "paymentSlip" && e.target.files[0]) {
+      setInput({ ...input, [e.target.name]: e.target.files[0] });
+    } else setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
   const handleSubmitPayment = (e) => {
     e.preventDefault();
@@ -12,58 +28,70 @@ export default function CheckoutForm() {
   return (
     <div className="bg-white py-12 md:py-24">
       <div className="mx-auto max-w-lg px-4 lg:px-8">
-        <form className="grid grid-cols-6 gap-4">
+        <form className="grid grid-cols-6 gap-4" onSubmit={handleSubmitPayment}>
           <div className="col-span-3">
             <label
-              htmlFor="FirstName"
+              htmlFor="firstName"
               className="block text-sm font-medium text-gray-700"
             >
               First Name
             </label>
             <input
               type="text"
-              id="FirstName"
+              id="firstName"
+              name="firstName"
               className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+              value={input?.firstName}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col-span-3">
             <label
-              htmlFor="LastName"
+              htmlFor="lastName"
               className="block text-sm font-medium text-gray-700"
             >
               Last Name
             </label>
             <input
               type="text"
-              id="LastName"
+              id="lastName"
+              name="lastName"
               className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+              value={input?.lastName}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col-span-6">
             <label
-              htmlFor="Phone"
+              htmlFor="mobile"
               className="block text-sm font-medium text-gray-700"
             >
               Phone
             </label>
             <input
               type="tel"
-              id="Phone"
+              id="mobile"
+              name="mobile"
               className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+              value={input.mobile}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col-span-6">
             <label
               className="block text-sm font-medium text-gray-700"
-              htmlFor="Address"
+              htmlFor="address"
             >
               Address
             </label>
             <input
               type="text"
-              id="Address"
+              id="address"
+              name="address"
               placeholder="building number, street, district, province, zipcode "
               className="relative w-full rounded-b-md border-gray-200 focus:z-10 sm:text-sm"
+              value={input.address}
+              onChange={handleInputChange}
             />
           </div>
           <div className="col-span-6 text-gray-700">
@@ -78,22 +106,21 @@ export default function CheckoutForm() {
           </div>
           <div className="col-span-6">
             <label
-              htmlFor="Slip"
+              htmlFor="paymentSlip"
               className="block text-sm font-medium text-gray-700"
             >
               Payment Slip
             </label>
             <input
               type="file"
-              id="slip"
+              id="paymentSlip"
+              name="paymentSlip"
               className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+              onChange={handleInputChange}
             />
           </div>
           <div className="col-span-6">
-            <button
-              className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg"
-              onClick={handleSubmitPayment}
-            >
+            <button className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg">
               Submit Payment
             </button>
           </div>
