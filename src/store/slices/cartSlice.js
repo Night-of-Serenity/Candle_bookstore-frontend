@@ -86,6 +86,21 @@ export const fetchCartAsync = createAsyncThunk(
   }
 );
 
+export const submitPaymentAsync = createAsyncThunk(
+  "cart/submitPaymentAsync",
+  async (paymentFormData, thunkApi) => {
+    try {
+      // for (const pair of paymentFormData.entries()) {
+      //   console.log(`${pair[0]}, ${pair[1]}`);
+      // }
+      const res = await CartApi.submitPayment(paymentFormData);
+      // console.log("res axios fetch cart", res.data);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -107,6 +122,9 @@ const cartSlice = createSlice({
       })
       .addCase(deleteItemByIdAsync.fulfilled, (state, action) => {
         state.cartItems = action.payload;
+      })
+      .addCase(submitPaymentAsync.fulfilled, (state) => {
+        state.cartItems = [];
       }),
 });
 

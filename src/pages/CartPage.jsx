@@ -1,10 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import CartList from "../features/cart/CartList";
 import CartSummary from "../features/cart/CartSummary";
+import { fetchCartAsync } from "../store/slices/cartSlice";
+import { useEffect } from "react";
 
 export default function CartPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartAsync());
+  }, []);
 
   return (
     <section className="w-full py-12">

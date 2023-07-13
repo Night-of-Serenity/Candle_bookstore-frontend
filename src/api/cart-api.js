@@ -8,3 +8,6 @@ export const fetchCart = () => axios.get("/cart/fetchcart");
 
 export const deleteItemFromCart = (bookId) =>
   axios.delete(`/cart/deleteitem/${bookId}`);
+
+export const submitPayment = (input) =>
+  axios.post("/cart/submitpayment", input);

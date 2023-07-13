@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import scbIcon from "../../../assets/scb.png";
-import Modal from "../../../components/Modal";
+// import Modal from "../../../components/Modal";
+import { useNavigate } from "react-router-dom";
+import { submitPaymentAsync } from "../../../store/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function CheckoutForm() {
   const initialInput = {
@@ -12,22 +16,46 @@ export default function CheckoutForm() {
   };
   const [input, setInput] = useState(initialInput);
 
-  const modalRef = useRef();
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
+  const nagivate = useNavigate();
+
+  // const modalRef = useRef();
 
   const handleInputChange = (e) => {
-    console.dir(e.target);
+    // console.dir(e.target);
     if (e.target.name == "paymentSlip" && e.target.files[0]) {
       setInput({ ...input, [e.target.name]: e.target.files[0] });
     } else setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitPayment = (e) => {
-    e.preventDefault();
-    modalRef.current.click();
+  const handleSubmitPayment = async (e) => {
+    try {
+      e.preventDefault();
+      const formData = new FormData();
+      for (let key in input) {
+        formData.append(key, input[key]);
+      }
+
+      // console.dir(cartItems);
+      formData.append("cartItems", JSON.stringify(cartItems));
+
+      const result = await dispatch(submitPaymentAsync(formData)).unwrap();
+      if (result) {
+        toast.success(result);
+        setInput(initialInput);
+        nagivate("/");
+        // modalRef.current.click();
+      }
+    } catch (err) {
+      toast.error(err);
+    }
   };
   return (
     <div className="bg-white py-12 md:py-24">
-      <div className="mx-auto max-w-lg px-4 lg:px-8">
+      <div className="mx-auto max-w-lg px-4 lg:px-8 text-gray-700">
         <form className="grid grid-cols-6 gap-4" onSubmit={handleSubmitPayment}>
           <div className="col-span-3">
             <label
@@ -125,14 +153,18 @@ export default function CheckoutForm() {
             </button>
           </div>
         </form>
-        <div className="invisible">
+        {/* <div className="invisible">
           <Modal modalBtnRef={modalRef}>
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-3xl">Submit Payment Successfull!</h1>
-              <p>click here to return to homepage</p>
+              <p>
+                click
+                <Link to="/"> here </Link>
+                to return to homepage
+              </p>
             </div>
           </Modal>
-        </div>
+        </div> */}
       </div>
     </div>
   );
