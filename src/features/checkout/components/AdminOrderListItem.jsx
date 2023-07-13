@@ -5,14 +5,14 @@ export default function AdminOrderListItem({
   onChangeOrderStatus,
   onOpenSlip,
 }) {
-  const initialOrderStatus = order?.orderStatus == "pending" ? false : true;
-  const [toggleOrderStatus, setToggleOrderStatus] =
-    useState(initialOrderStatus);
+  const orderStatus = order?.orderStatus == "pending" ? false : true;
+  //   const [toggleOrderStatus, setToggleOrderStatus] = useState(orderStatus);
 
   const onChangeToggle = (e) => {
     e.preventDefault();
     console.dir(e.target);
-    setToggleOrderStatus(e.target.checked);
+    // setToggleOrderStatus(!orderStatus);
+    onChangeOrderStatus(order.id, order.orderStatus);
   };
   return (
     <tr className="hover:bg-slate-500 hover:text-white hover:font-normal hover:cursor-pointer">
@@ -34,8 +34,8 @@ export default function AdminOrderListItem({
       <td>
         <input
           type="checkbox"
-          className=" bg-white toggle toggle-info"
-          checked={toggleOrderStatus}
+          className="toggle toggle-info"
+          checked={orderStatus}
           onChange={onChangeToggle}
         />
       </td>

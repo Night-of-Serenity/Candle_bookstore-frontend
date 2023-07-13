@@ -17,7 +17,15 @@ export default function AdminOrderList() {
     }
   };
 
-  const onChangeOrderStatus = async (orderId, orderStatus) => {};
+  const onChangeOrderStatus = async (orderId, orderStatus) => {
+    const orderIndex = ordersList.findIndex((order) => order.id == orderId);
+    if (orderIndex !== -1) {
+      const newOrdersList = [...ordersList];
+      newOrdersList[orderIndex].orderStatus =
+        orderStatus == "pending" ? "confirmed" : "pending";
+      setOrdersList(newOrdersList);
+    }
+  };
 
   const onOpenSlip = (order) => {
     setSlipOrder({ ...order });
