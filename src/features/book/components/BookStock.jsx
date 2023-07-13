@@ -33,7 +33,9 @@ export default function BookStock() {
         </div>
       </div>
       <div className="flex items-center mt-5">
-        <Pagination />
+        <div className="invisible  flex flex-1">
+          <Pagination />
+        </div>
         <Link to="/books/addbook">
           <button className="btn btn-primary btn-sm rounded-md ">
             Add Book
