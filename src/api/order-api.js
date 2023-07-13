@@ -1,1 +1,4 @@
-// import axios from "./axios";
+import axios from "./axios";
+
+export const fetchAdminOrdersList = () =>
+  axios.get("/order/fetchadminorderslist");
