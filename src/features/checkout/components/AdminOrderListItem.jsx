@@ -12,13 +12,18 @@ export default function AdminOrderListItem({
     e.preventDefault();
     console.dir(e.target);
     // setToggleOrderStatus(!orderStatus);
-    onChangeOrderStatus(order.id, order.orderStatus);
+    onChangeOrderStatus(order.id);
   };
   return (
     <tr className="hover:bg-slate-500 hover:text-white hover:font-normal hover:cursor-pointer">
       <td>{order?.id}</td>
-      <td>{order?.User.username}</td>
-      <td>{order?.totalPrice}</td>
+      <td>{order?.User?.username}</td>
+      <td>
+        {order?.User?.firstName} {order?.User?.lastName}
+      </td>
+      <td>{order?.User?.mobile}</td>
+      <td>{order?.User?.address}</td>
+      <td>{order?.totalPrice}$</td>
       <td>{new Date(order?.createdAt).toLocaleString()}</td>
       <td>
         <span

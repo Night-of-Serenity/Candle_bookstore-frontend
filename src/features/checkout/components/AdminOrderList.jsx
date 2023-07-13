@@ -17,7 +17,7 @@ export default function AdminOrderList() {
     }
   };
 
-  const onChangeOrderStatus = async (orderId, orderStatus) => {
+  const onChangeOrderStatus = async (orderId) => {
     try {
       const res = await OrderApi.toggleOrderStatus(orderId);
       if (res.data) {
@@ -51,6 +51,9 @@ export default function AdminOrderList() {
           <tr className="bg-slate-600 text-white">
             <th>order id</th>
             <th>customer</th>
+            <th>full name</th>
+            <th>phone</th>
+            <th>address</th>
             <th>total price</th>
             <th>order date-time</th>
             <th>slip</th>
@@ -74,7 +77,10 @@ export default function AdminOrderList() {
         <tfoot>
           <tr className="bg-slate-600 text-white">
             <th>order id</th>
-            <th>customer id</th>
+            <th>customer</th>
+            <th>full name</th>
+            <th>phone</th>
+            <th>address</th>
             <th>total price</th>
             <th>order date-time</th>
             <th>slip</th>
