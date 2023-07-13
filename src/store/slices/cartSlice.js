@@ -37,9 +37,9 @@ export const addItemToCartByIdAsync = createAsyncThunk(
   "cart/addItemToCartByIdAsync",
   async (input, thunkApi) => {
     try {
-      console.log("add item obj", input);
+      // console.log("add item obj", input);
       const res = await CartApi.addItemById(input);
-      console.log("res axios add books by genre id", res.data);
+      // console.log("res axios add books by genre id", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -52,7 +52,7 @@ export const reduceItemByIdAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await CartApi.reduceItemById(input);
-      console.log("res axios remove item from cart", res.data);
+      // console.log("res axios remove item from cart", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -65,7 +65,7 @@ export const deleteItemByIdAsync = createAsyncThunk(
   async (input, thunkApi) => {
     try {
       const res = await CartApi.deleteItemFromCart(input);
-      console.log("res axios remove item from cart", res.data);
+      // console.log("res axios remove item from cart", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -78,7 +78,7 @@ export const fetchCartAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await CartApi.fetchCart();
-      console.log("res axios fetch cart", res.data);
+      // console.log("res axios fetch cart", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);

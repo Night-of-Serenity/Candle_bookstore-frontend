@@ -22,7 +22,7 @@ export const fetchGenresAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const resFetchGenres = await BookApi.getGenres();
-      console.log("res axios genres", resFetchGenres);
+      // console.log("res axios genres", resFetchGenres);
       return resFetchGenres.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -35,7 +35,7 @@ export const fetchAllBookAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await BookApi.getAllBooks();
-      console.log("res axios allbooks", res.data);
+      // console.log("res axios allbooks", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -48,7 +48,7 @@ export const fetchBestsellerAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await BookApi.getBestseller();
-      console.log("res axios bestseller", res.data);
+      // console.log("res axios bestseller", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -61,7 +61,7 @@ export const fetchPromotionsAsync = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await BookApi.getDiscountBooks();
-      console.log("res axios discount", res.data);
+      // console.log("res axios discount", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -74,7 +74,7 @@ export const fetchBooksByGenreIdAsync = createAsyncThunk(
   async (genreId, thunkApi) => {
     try {
       const res = await BookApi.fetchBooksByGenre(genreId);
-      console.log("res axios get books by genre id", res.data);
+      // console.log("res axios get books by genre id", res.data);
       return res.data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
@@ -94,23 +94,23 @@ const bookSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchGenresAsync.fulfilled, (state, action) => {
-        console.log("add case genre", action.payload);
+        // console.log("add case genre", action.payload);
         state.genresList = action.payload;
       })
       .addCase(fetchAllBookAsync.fulfilled, (state, action) => {
-        console.log("add case allbook", action.payload);
+        // console.log("add case allbook", action.payload);
         state.booksList = action.payload;
       })
       .addCase(fetchBestsellerAsync.fulfilled, (state, action) => {
-        console.log("add case bestseller", action.payload);
+        // console.log("add case bestseller", action.payload);
         state.booksList = action.payload;
       })
       .addCase(fetchPromotionsAsync.fulfilled, (state, action) => {
-        console.log("add case promotions", action.payload);
+        // console.log("add case promotions", action.payload);
         state.booksList = action.payload;
       })
       .addCase(fetchBooksByGenreIdAsync.fulfilled, (state, action) => {
-        console.log("add case book gerne id", action.payload);
+        // console.log("add case book gerne id", action.payload);
         state.booksList = action.payload;
       }),
 });
