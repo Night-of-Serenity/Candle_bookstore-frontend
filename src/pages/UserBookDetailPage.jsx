@@ -37,7 +37,7 @@ export default function UserBookDetailsPage() {
     }
     // console.log(quantityInput);
     const addItemASync = async () => {
-      await dispatch(
+      dispatch(
         addItemToCartByIdAsync({ bookId: bookid, quantity: +quantityInput })
       );
     };
