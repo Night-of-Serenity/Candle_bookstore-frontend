@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 export default function Bookcard({
   id,
   title = "",
+  bookCover,
   rating = 0,
   price = 0,
   modalBtnRef,
@@ -39,13 +40,19 @@ export default function Bookcard({
 
   return (
     <div className="flex items-center flex-1 justify-center rounded-md w-full">
-      <div className="card bg-slate-400 shadow-xl h-full py-2">
-        <figure className="">
+      <div className="card bg-slate-400 shadow-xl h-full py-3">
+        <figure className="h-[220px]">
           <Link to={`/books/bookdetail/${id}`}>
-            <img src={defaultBookCover} alt="bookcover" className="w-full" />
+            <div className="flex justify-center aspect-square">
+              <img
+                src={bookCover || defaultBookCover}
+                alt="bookcover"
+                className=" h-full object-cover"
+              />
+            </div>
           </Link>
         </figure>
-        <div className="card-body items-center text-center pt-0 py-5">
+        <div className="card-body items-center text-center pt-0 py-5 mt-2">
           <Link to={`/books/bookdetail/${id}`}>
             <span className="card-title text-sm text-black">{title}</span>
           </Link>

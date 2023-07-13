@@ -17,6 +17,7 @@ export default function BookGrid() {
             id={book.id}
             key={book.id}
             title={book.title}
+            bookCover={book.bookCover}
             rating={book.rating}
             price={book.price}
             modalBtnRef={modalBtnRef}

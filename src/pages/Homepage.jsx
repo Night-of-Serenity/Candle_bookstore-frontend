@@ -62,6 +62,7 @@ export default function Homepage() {
                 key={book.id}
                 id={book.id}
                 title={book.title}
+                bookCover={book.cover}
                 rating={book.rating}
                 price={book.price}
                 modalBtnRef={modalBtnRef}
