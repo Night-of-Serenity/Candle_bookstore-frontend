@@ -44,7 +44,7 @@ export default function CheckoutForm() {
 
       const result = await dispatch(submitPaymentAsync(formData)).unwrap();
       if (result) {
-        toast.success(result);
+        toast.success(result.message);
         setInput(initialInput);
         nagivate("/");
         // modalRef.current.click();
