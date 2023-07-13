@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AdminOrderListItem from "./AdminOrderListItem";
 import * as OrderApi from "../../../api/order-api";
+import Modal from "../../../components/Modal";
 
 export default function AdminOrderList() {
   const [ordersList, setOrdersList] = useState([]);
+  const [slipOrder, setSlipOrder] = useState({});
+  const modalRef = useRef();
+
   const fetchOrdersList = async () => {
     try {
       const res = await OrderApi.fetchAdminOrdersList();
@@ -12,6 +16,14 @@ export default function AdminOrderList() {
       console.log(err);
     }
   };
+
+  const onChangeOrderStatus = async (orderId, orderStatus) => {};
+
+  const onOpenSlip = (order) => {
+    setSlipOrder({ ...order });
+    modalRef.current.click();
+  };
+
   useEffect(() => {
     fetchOrdersList();
   }, []);
@@ -22,17 +34,25 @@ export default function AdminOrderList() {
         <thead>
           <tr className="bg-slate-600 text-white">
             <th>order id</th>
-            <th>customer id</th>
+            <th>customer</th>
             <th>total price</th>
             <th>order date-time</th>
             <th>slip</th>
             <th>status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {/* row 1 */}
           {ordersList.length > 0 &&
-            ordersList.map((order) => <AdminOrderListItem key={order.id} />)}
+            ordersList.map((order) => (
+              <AdminOrderListItem
+                key={order.id}
+                order={order}
+                onOpenSlip={onOpenSlip}
+                onChangeOrderStatus={onChangeOrderStatus}
+              />
+            ))}
         </tbody>
         {/* foot */}
         <tfoot>
@@ -43,9 +63,17 @@ export default function AdminOrderList() {
             <th>order date-time</th>
             <th>slip</th>
             <th>status</th>
+            <th></th>
           </tr>
         </tfoot>
       </table>
+      <div className="invisible">
+        <Modal modalBtnRef={modalRef}>
+          <div>
+            <img src={slipOrder?.paymentSlip} />
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 }

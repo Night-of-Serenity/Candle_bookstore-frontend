@@ -1,24 +1,44 @@
-export default function AdminOrderListItem() {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+export default function AdminOrderListItem({
+  order,
+  onChangeOrderStatus,
+  onOpenSlip,
+}) {
+  const initialOrderStatus = order?.orderStatus == "pending" ? false : true;
+  const [toggleOrderStatus, setToggleOrderStatus] =
+    useState(initialOrderStatus);
+
+  const onChangeToggle = (e) => {
+    e.preventDefault();
+    console.dir(e.target);
+    setToggleOrderStatus(e.target.checked);
+  };
   return (
     <tr className="hover:bg-slate-500 hover:text-white hover:font-normal hover:cursor-pointer">
-      <td>orderId</td>
+      <td>{order?.id}</td>
+      <td>{order?.User.username}</td>
+      <td>{order?.totalPrice}</td>
+      <td>{new Date(order?.createdAt).toLocaleString()}</td>
       <td>
-        <div className="flex items-center space-x-3">
-          <div className="avatar">
-            <div className=" w-12 h-12 flex">
-              <img className="aspect-square" src={null} alt="bookcover" />
-            </div>
-          </div>
-          <div>
-            <div className="font-bold">title</div>
-            <div className="text-sm opacity-50">author</div>
-          </div>
-        </div>
+        <span
+          className="cursor-pointer underline"
+          onClick={() => {
+            onOpenSlip(order);
+          }}
+        >
+          slip
+        </span>
       </td>
-      <td>quantity</td>
-      <td>price</td>
-      <td>sale</td>
-      <td>updatedTime</td>
+      <td>{order?.orderStatus}</td>
+      <td>
+        <input
+          type="checkbox"
+          className=" bg-white toggle toggle-info"
+          checked={toggleOrderStatus}
+          onChange={onChangeToggle}
+        />
+      </td>
     </tr>
   );
 }

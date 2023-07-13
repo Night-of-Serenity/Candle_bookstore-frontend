@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 export default function Modal({ modalBtnRef, children }) {
+  // console.log(window.my_modal_2);
   return (
     <>
       <button
