@@ -10,7 +10,6 @@ import { useRef } from "react";
 import * as BookApi from "../api/book-api";
 import { addItemToCartByIdAsync } from "../store/slices/cartSlice";
 import { toast } from "react-toastify";
-import { func } from "joi";
 
 export default function UserBookDetailsPage() {
   const isAuthen = useSelector((state) => state.auth.isAuthenticated);
@@ -36,7 +35,7 @@ export default function UserBookDetailsPage() {
       modalBtnRef.current.click();
       return;
     }
-    console.log(quantityInput);
+    // console.log(quantityInput);
     const addItemASync = async () => {
       await dispatch(
         addItemToCartByIdAsync({ bookId: bookid, quantity: +quantityInput })
@@ -144,7 +143,7 @@ export default function UserBookDetailsPage() {
                     onChange={(e) => {
                       e.preventDefault();
                       setQuantityInput(e.target.value);
-                      console.log(quantityInput);
+                      // console.log(quantityInput);
                     }}
                   />
                 </div>

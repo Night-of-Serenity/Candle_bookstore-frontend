@@ -18,16 +18,16 @@ export default function Bookcard({
 
   const handleOnClickCart = async (e) => {
     try {
-      console.log(isAuth);
+      // console.log(isAuth);
       e.preventDefault();
-      console.log("click card book id", id);
+      // console.log("click card book id", id);
 
       // show modal when not login
       if (!isAuth) {
         modalBtnRef?.current.click();
         return;
       }
-      console.log("add cart");
+      // console.log("add cart");
       await dispatch(
         addItemToCartByIdAsync({ quantity: 1, bookId: id })
       ).unwrap();

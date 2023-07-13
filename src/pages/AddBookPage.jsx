@@ -17,7 +17,7 @@ export default function AddBookPage() {
   // console.log(imgInput);
 
   const genres = useSelector((state) => state.book.genresList);
-  console.log(genres);
+  // console.log(genres);
   const {
     register,
     handleSubmit,
@@ -28,10 +28,10 @@ export default function AddBookPage() {
   const navigate = useNavigate();
   const onAddBookSubmit = async (data) => {
     try {
-      console.log(data);
+      // console.log(data);
 
       const res = await BookApi.addBook(data);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data) {
         toast.success("add book successful");
         navigate(`/books/bookdetail/${res.data.id}`);
@@ -57,7 +57,6 @@ export default function AddBookPage() {
               ref={imgInput}
               className="hidden"
               onChange={(e) => {
-                console.log(e);
                 if (e.target.files[0]) {
                   setCover(e.target.files[0]);
                 }

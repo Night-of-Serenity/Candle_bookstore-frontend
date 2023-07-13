@@ -13,7 +13,7 @@ import GenreCheckbox from "../features/book/components/GenreCheckbox";
 export default function AdminBookDetailsPage() {
   // bookid param from url
   const { bookid } = useParams();
-  console.log(bookid);
+  // console.log(bookid);
 
   // const [editMode, setEditMode] = useState(false);
 
@@ -63,7 +63,7 @@ export default function AdminBookDetailsPage() {
   const fetchBook = async (bookId) => {
     try {
       const res = await BookApi.getBookById(bookId);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.status !== 200) throw res;
       setBookDetail(res.data);
       setEditMode(false);
@@ -74,7 +74,7 @@ export default function AdminBookDetailsPage() {
 
   const deleteBook = async () => {
     try {
-      console.log("delete book id:", bookid);
+      // console.log("delete book id:", bookid);
       const res = await BookApi.deleteBookById(bookid);
       if (res.data) {
         await fetchBook(bookid);
@@ -88,9 +88,9 @@ export default function AdminBookDetailsPage() {
 
   const onSubmitEdit = async (data) => {
     try {
-      console.log(data);
+      // console.log(data);
       const res = await BookApi.editBook(data, bookid);
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data) {
         await fetchBook(bookid);
         toast.success("edit book succeed");

@@ -75,7 +75,7 @@ const authSlice = createSlice({
           state.isAdmin = action.payload.isAdmin;
         }
         state.user = action.payload;
-        console.log(action.payload);
+        // console.log(action.payload);
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
@@ -83,7 +83,7 @@ const authSlice = createSlice({
           state.isAdmin = action.payload.isAdmin;
         }
         state.user = action.payload;
-        console.log(action.payload);
+        // console.log(action.payload);
       })
       .addCase(fetchMeAsync.fulfilled, (state, action) => {
         state.isAuthenticated = true;
@@ -91,13 +91,13 @@ const authSlice = createSlice({
           state.isAdmin = action.payload.isAdmin;
         }
         state.user = action.payload;
-        console.log(action.payload);
+        // console.log(action.payload);
       })
-      .addCase(logoutAsync.fulfilled, (state, action) => {
+      .addCase(logoutAsync.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.isAdmin = false;
         state.user = null;
-        console.log(action.payload);
+        // console.log(action.payload);
       }),
 });
 
