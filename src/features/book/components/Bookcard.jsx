@@ -40,14 +40,14 @@ export default function Bookcard({
 
   return (
     <div className="flex items-center flex-1 justify-center rounded-md w-full">
-      <div className="card bg-slate-400 shadow-xl h-full py-3">
-        <figure className="h-[220px]">
+      <div className="card bg-slate-200 shadow-xl h-full py-3">
+        <figure className="h-[250px] mt-2">
           <Link to={`/books/bookdetail/${id}`}>
-            <div className="flex justify-center aspect-square">
+            <div className="flex justify-center aspect-square object-cover">
               <img
                 src={bookCover || defaultBookCover}
                 alt="bookcover"
-                className=" h-full object-cover"
+                className=" h-full"
               />
             </div>
           </Link>
