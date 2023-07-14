@@ -24,7 +24,7 @@ export default function BookStockList({ booksList }) {
               bookId={book.id}
               title={book.title}
               author={book.author}
-              bookCover={book.cover}
+              bookCover={book.bookCover}
               quantity={book.quantity}
               price={book.price}
               sale={book.saleQuantity}

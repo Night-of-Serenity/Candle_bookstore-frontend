@@ -10,6 +10,7 @@ import { useRef } from "react";
 import * as BookApi from "../api/book-api";
 import { addItemToCartByIdAsync } from "../store/slices/cartSlice";
 import { toast } from "react-toastify";
+import { fetchBooksByGenreIdAsync } from "../store/slices/bookslice";
 
 export default function UserBookDetailsPage() {
   const isAuthen = useSelector((state) => state.auth.isAuthenticated);
@@ -59,6 +60,10 @@ export default function UserBookDetailsPage() {
     }
   };
 
+  const handleOnClickGenre = async (genreId) => {
+    dispatch(fetchBooksByGenreIdAsync(genreId));
+    navigate(`/filter/genres/${genreId}`);
+  };
   useEffect(() => {
     fetchBookDetail(bookid);
   }, [bookid]);
@@ -92,6 +97,9 @@ export default function UserBookDetailsPage() {
                   {bookDetail?.BookToGenres &&
                     bookDetail?.BookToGenres.map((genre) => (
                       <span
+                        onClick={() => {
+                          handleOnClickGenre(genre.Genre.id);
+                        }}
                         key={genre.Genre.id}
                         className="btn btn-outline btn-primary btn-sm"
                       >
