@@ -8,7 +8,7 @@ export default function BookListItem({
   bookCover,
   quantity,
   price,
-  sale = 0,
+  sale,
   updatedTime = new Date().toISOString(),
 }) {
   bookCover = bookCover || defaultBookcover;
@@ -35,8 +35,8 @@ export default function BookListItem({
       </td>
       <td>{quantity}</td>
       <td>{price}</td>
-      <td>{sale}</td>
-      <td>{updatedTime}</td>
+      <td>{sale || 0}</td>
+      <td>{new Date(updatedTime).toLocaleString()}</td>
     </tr>
   );
 }
