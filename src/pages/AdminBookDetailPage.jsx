@@ -1,5 +1,5 @@
 // import bookCover from "../assets/book_covers/Think_Again-The_Power_of_Knowing_What_You_Don't_Know.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import defaultCover from "../assets/default/book_cover_blank.png";
 import StarRating from "../features/book/components/StarRating";
 import { toast } from "react-toastify";
@@ -88,18 +88,30 @@ export default function AdminBookDetailsPage() {
 
   const onSubmitEdit = async (data) => {
     try {
-      // console.log(data);
-      const res = await BookApi.editBook(data, bookid);
+      // console.log(bookCover);
+      let newData;
+      if (bookCover) {
+        newData = { ...data, bookCover: bookCover };
+      }
+      // console.log(newData);
+      const formData = new FormData();
+      for (let key in newData) {
+        if (key == "bookCover") formData.append(key, newData[key]);
+        formData.append(key, JSON.stringify(newData[key]));
+      }
+
+      const res = await BookApi.editBook(formData, bookid);
       // console.log(res.data);
       if (res.data) {
-        await fetchBook(bookid);
+        fetchBook(bookid);
         toast.success("edit book succeed");
-        // navigate(`/books/bookdetail/${res.data.id}`);
       }
     } catch (err) {
       toast.error(err.message);
     }
   };
+  const coverRef = useRef();
+  const [bookCover, setBookCover] = useState(bookDetail?.bookCover);
 
   useEffect(() => {
     fetchBook(bookid);
@@ -118,14 +130,49 @@ export default function AdminBookDetailsPage() {
     >
       <div className="relative mx-auto max-w-screen-xl px-4 py-8">
         <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-3">
-          <div className="flex flex-col justify-center items-center w-full self-auto h-full">
-            <div className="w-[300px]">
-              <img
-                alt="bookcover"
-                src={bookDetail?.bookCover || defaultCover}
-              />
+          {editMode ? (
+            <div className="flex flex-col justify-center items-center w-full self-auto h-full">
+              <div className="w-[300px]">
+                <img
+                  alt="bookcover"
+                  src={
+                    bookCover
+                      ? URL.createObjectURL(bookCover)
+                      : bookDetail?.bookCover || defaultCover
+                  }
+                />
+              </div>
+              <input
+                type="file"
+                ref={coverRef}
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files[0]) {
+                    setBookCover(e.target.files[0]);
+                  }
+                }}
+              ></input>
+              <button
+                className="btn btn-primary btn-outline btn-sm"
+                role="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  coverRef.current.click();
+                }}
+              >
+                Change cover
+              </button>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col justify-center items-center w-full self-auto h-full">
+              <div className="w-[300px]">
+                <img
+                  alt="bookcover"
+                  src={bookDetail.bookCover || defaultCover}
+                />
+              </div>
+            </div>
+          )}
           <div className="text-white col-span-2">
             <div className="max-w-[35ch] space-y-2">
               <h1 className="text-4xl font-bold sm:text-2xl w-[400px]">
