@@ -1,8 +1,18 @@
+import { useState } from "react";
 import { SearchIcon } from "../../icons/index";
 
 export default function Searchbar() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
-    <form>
+    <form onSubmit={handleSearchSubmit}>
       <div className="flex">
         <div className="relative w-full">
           <input
@@ -12,6 +22,8 @@ export default function Searchbar() {
             className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-gray-500 focus:border-gray-800"
             placeholder="Search book title..."
             required=""
+            value={searchQuery}
+            onChange={handleSearchInputChange}
           />
           <button
             type="submit"
