@@ -88,7 +88,7 @@ export const fetchBooksBySearchAsync = createAsyncThunk(
     try {
       const res = await BookApi.fetchBooksBySearchQuery(input);
       // console.log("res axios get books by genre id", res.data);
-      return res.data;
+      return { books: res.data, searchTitle: input };
     } catch (err) {
       return thunkApi.rejectWithValue(err.response.data.message);
     }
@@ -98,6 +98,7 @@ export const fetchBooksBySearchAsync = createAsyncThunk(
 const initialState = {
   booksList: [],
   genresList: [],
+  searchTitle: "",
 };
 
 const bookSlice = createSlice({
@@ -127,7 +128,9 @@ const bookSlice = createSlice({
         state.booksList = action.payload;
       })
       .addCase(fetchBooksBySearchAsync.fulfilled, (state, action) => {
-        state.booksList = action.payload;
+        // console.log(action.payload);
+        state.booksList = action.payload.books;
+        state.searchTitle = action.payload.searchTitle;
       }),
 });
 

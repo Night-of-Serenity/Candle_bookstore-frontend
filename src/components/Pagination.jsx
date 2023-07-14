@@ -24,17 +24,18 @@ export default function Pagination() {
             </svg>
           </Link>
         </li>
+        <li className="block w-8 h-8 leading-8 text-center text-white bg-slate-800 border-slate-800 rounded">
+          1
+        </li>
         <li>
           <Link
             href="#"
             className="block w-8 h-8 leading-8 text-center text-gray-900 bg-white border border-gray-100 rounded"
           >
-            1
+            2
           </Link>
         </li>
-        <li className="block w-8 h-8 leading-8 text-center text-white bg-slate-800 border-slate-800 rounded">
-          2
-        </li>
+
         <li>
           <Link
             href="#"

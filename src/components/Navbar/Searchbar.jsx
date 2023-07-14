@@ -15,7 +15,7 @@ export default function Searchbar() {
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     await dispatch(fetchBooksBySearchAsync(searchQuery)).unwrap();
-    // setSearchQuery("");
+    setSearchQuery("");
     navigate(`/filter/search?title=${searchQuery}`);
   };
   return (
