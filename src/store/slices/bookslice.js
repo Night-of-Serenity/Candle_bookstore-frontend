@@ -82,6 +82,19 @@ export const fetchBooksByGenreIdAsync = createAsyncThunk(
   }
 );
 
+export const fetchBooksBySearchAsync = createAsyncThunk(
+  "book/fetchBooksBySearchAsync",
+  async (input, thunkApi) => {
+    try {
+      const res = await BookApi.fetchBooksBySearchQuery(input);
+      // console.log("res axios get books by genre id", res.data);
+      return res.data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const initialState = {
   booksList: [],
   genresList: [],
@@ -111,6 +124,9 @@ const bookSlice = createSlice({
       })
       .addCase(fetchBooksByGenreIdAsync.fulfilled, (state, action) => {
         // console.log("add case book gerne id", action.payload);
+        state.booksList = action.payload;
+      })
+      .addCase(fetchBooksBySearchAsync.fulfilled, (state, action) => {
         state.booksList = action.payload;
       }),
 });

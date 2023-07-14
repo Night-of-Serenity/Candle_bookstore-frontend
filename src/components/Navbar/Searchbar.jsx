@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { SearchIcon } from "../../icons/index";
+import { fetchBooksBySearchAsync } from "../../store/slices/bookslice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Searchbar() {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
+    await dispatch(fetchBooksBySearchAsync(searchQuery)).unwrap();
+    // setSearchQuery("");
+    navigate(`/filter/search?title=${searchQuery}`);
   };
   return (
     <form onSubmit={handleSearchSubmit}>
