@@ -20,3 +20,6 @@ export const getGenres = () => axios.get("/book/genres");
 
 export const fetchBooksByGenre = (genreId) =>
   axios.get(`/book/genres/${genreId}`);
+
+export const fetchBooksBySearchQuery = (input) =>
+  axios.get(`book/search?title=${input}`);

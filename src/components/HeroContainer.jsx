@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import heroImage from "../assets/carourel/Landscrap/carousel10.jpg";
+import { fetchBestsellerAsync } from "../store/slices/bookslice";
+import { useNavigate } from "react-router-dom";
+
 export default function HeroContainer() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div
       className="hero min-h-screen"
@@ -20,9 +25,16 @@ export default function HeroContainer() {
             and embark on a journey of enlightenment. Discover the magic of
             knowledge at Candle Bookshop!
           </p>
-          <Link to="filter/bestseller">
-            <button className="btn btn-primary">Get Started</button>
-          </Link>
+
+          <button
+            onClick={() => {
+              dispatch(fetchBestsellerAsync());
+              navigate("/filter/bestseller");
+            }}
+            className="btn btn-primary"
+          >
+            Get Started
+          </button>
         </div>
       </div>
     </div>
